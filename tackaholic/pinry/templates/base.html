@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static from staticfiles %}
+{% load compress %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        {%  if request.resolver_match.kwargs.user %}
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/user/{{ request.resolver_match.kwargs.user }}/">
+        {% elif request.resolver_match.kwargs.tag %}
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/tag/{{ request.resolver_match.kwargs.tag }}/">
+        {% else %}
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/">
+        {% endif %}
+
+        <!--  ___                     ___           ___                 
+             /  /\      ___          /__/\         /  /\          ___   
+            /  /::\    /  /\         \  \:\       /  /::\        /__/|  
+           /  /:/\:\  /  /:/          \  \:\     /  /:/\:\      |  |:|  
+          /  /:/~/:/ /__/::\      _____\__\:\   /  /:/~/:/      |  |:|  
+         /__/:/ /:/  \__\/\:\__  /__/::::::::\ /__/:/ /:/___  __|__|:|  
+         \  \:\/:/      \  \:\/\ \  \:\~~\~~\/ \  \:\/:::::/ /__/::::\  
+          \  \::/        \__\::/  \  \:\  ~~~   \  \::/~~~~     ~\~~\:\ 
+           \  \:\        /__/:/    \  \:\        \  \:\           \  \:\
+            \  \:\       \__\/      \  \:\        \  \:\           \__\/
+             \__\/                   \__\/         \__\/             -->
+
+        <title>{% block title %}Pinry{% endblock %}</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700"/>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static "vendor/bootstrap/3.0.0/css/bootstrap.css" %}"/>
+            <link rel="stylesheet" href="{% static "vendor/fineuploader/3.1.1/fineuploader.css" %}"/>
+            <link rel="stylesheet" href="{% static "css/messages.css" %}"/>
+            <link rel="stylesheet" href="{% static "css/lightbox.css" %}"/>
+            <link rel="stylesheet" href="{% static "css/pinry.css" %}"/>
+        {%  endcompress %}
+        {% compress css inline %}
+            {% block extra_css %}{% endblock %}
+        {% endcompress %}
+        <!-- End CSS -->
+
+        <!-- Start JavaScript Variables -->
+        <script>
+        var apiLimitPerPage = {{ API_LIMIT_PER_PAGE }},
+            errors = {% if not messages %}null,{% else %}[
+                {% for message in messages %}{
+                    tags: "{{ message.tags }}",
+                    text: "{{ message }}"
+                }{% endfor %}
+            ],{% endif %}
+            currentUser = {
+                id: "{{ user.id }}",
+                username: "{{ user.username }}",
+                gravatar: "{{ user.gravatar }}"
+            },
+            pinFilter = "{{ request.resolver_match.kwargs.pin }}",
+            tagFilter = "{{ request.resolver_match.kwargs.tag }}",
+            userFilter = "{{ request.resolver_match.kwargs.user }}";
+        </script>
+        <!-- End JavaScript Variables -->
+    </head>
+
+    <body>
+        <!-- Navigation -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{% url 'core:recent-pins' %}" class="navbar-brand">
+                        <img src="{% static "img/logo-dark.png" %}" alt="Pinry"/>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a onclick="pinForm()">New Pin</a></li>
+                            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                            <li>{% include "includes/bookmarklet_link.html" %}</li>
+                        {% else %}
+                            <li><a href="{% url 'users:login' %}">Login</a></li>
+                            <li><a href="{% url 'users:register' %}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Navigation -->
+
+        <!-- Messages -->
+        <ul id="messages"></ul>
+        <!-- End Messages -->
+
+        <!-- No Script -->
+        <div id="noscript">
+            <noscript>Scripting is not enabled in your browser, if you are using
+                a plugin like NoScript *high five*! Our code is open source and
+                you can view it on
+                <a href="https://github.com/pinry/pinry/">GitHub</a>.
+                <style>.spinner{display:none;}</style></noscript>
+        </div>
+        <!-- End No Script -->
+
+        <!-- Content -->
+        {% block yield %}{% endblock %}
+        <!-- End Content -->
+
+        <!-- Templates -->
+        {% include "includes/messages.html" %}
+        {% include "includes/lightbox.html" %}
+        {% include "includes/pins.html" %}
+        {% include "includes/pin_form.html" %}
+        {% block extra_templates %}{% endblock %}
+        <!-- End Templates -->
+
+        <!-- JavaScript -->
+        {% compress js %}
+            <script src="{% static "vendor/jquery/2.0.3/jquery-2.0.3.js" %}"></script>
+            <script src="{% static "vendor/fineuploader/3.1.1/jquery.fineuploader.js" %}"></script>
+            <script src="{% static "vendor/bootstrap/3.0.0/js/bootstrap.js" %}"></script>
+            <script src="{% static "vendor/handlebars/1.0.0/handlebars.js" %}"></script>
+            <script src="{% static "js/helpers.js" %}"></script>
+            <script src="{% static "js/messages.js" %}"></script>
+            <script src="{% static "js/lightbox.js" %}"></script>
+            <script src="{% static "js/pinry.js" %}"></script>
+            <script src="{% static "js/pin-form.js" %}"></script>
+        {% endcompress %}
+        {% compress js inline %}
+            {% block extra_js %}{% endblock %}
+        {% endcompress %}
+        <!-- End JavaScript -->
+    </body>
+</html>

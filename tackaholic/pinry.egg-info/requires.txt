@@ -1,0 +1,9 @@
+Django
+Pillow
+South
+requests
+django-taggit
+django-images
+django-braces
+django_compressor
+django-tastypie==0.9.14
