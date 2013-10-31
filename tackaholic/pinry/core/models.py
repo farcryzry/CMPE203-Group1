@@ -35,6 +35,10 @@ class Image(BaseImage):
     class Meta:
         proxy = True
 
+class Board(models.Model):
+    owner = models.ForeignKey(User)
+    board_name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
 
 class Pin(models.Model):
     submitter = models.ForeignKey(User)
@@ -44,6 +48,9 @@ class Pin(models.Model):
     image = models.ForeignKey(Image, related_name='pin')
     published = models.DateTimeField(auto_now_add=True)
     tags = TaggableManager()
+    #board = models.ForeignKey(Board, blank=True, null=True)
 
     def __unicode__(self):
         return self.url
+
+

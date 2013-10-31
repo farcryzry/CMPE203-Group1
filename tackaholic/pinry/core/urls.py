@@ -5,7 +5,7 @@ from tastypie.api import Api
 
 from .api import ImageResource, ThumbnailResource, PinResource, UserResource
 from .feeds import LatestPins, LatestUserPins, LatestTagPins
-from .views import CreateImage
+from .views import CreateImage, BoardMgmt
 
 
 v1_api = Api(api_name='v1')
@@ -34,4 +34,5 @@ urlpatterns = patterns('',
         name='recent-pins'),
     url(r'^$', TemplateView.as_view(template_name='core/pins.html'),
         name='recent-pins'),
+    url(r'^board/$', BoardMgmt.as_view(), name='board'),
 )
