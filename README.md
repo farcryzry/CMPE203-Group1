@@ -16,7 +16,9 @@ To verify that Django can be seen by Python, type python from your shell. Then a
 1.5.5
 
 3.  Download the source code and set it up.<br>
-python setup.py install.
+//Run in command line
+$ python setup.py install
 
 4.  Start web server and enjoy.<br>
-python manage.py runserver.
+//Run in command Line
+$ python manage.py runserver
