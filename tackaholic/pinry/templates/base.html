@@ -117,6 +117,7 @@
         {% include "includes/lightbox.html" %}
         {% include "includes/pins.html" %}
         {% include "includes/pin_form.html" %}
+        {% include "includes/board_form.html" %}
         {% block extra_templates %}{% endblock %}
         <!-- End Templates -->
 
@@ -131,6 +132,7 @@
             <script src="{% static "js/lightbox.js" %}"></script>
             <script src="{% static "js/pinry.js" %}"></script>
             <script src="{% static "js/pin-form.js" %}"></script>
+            <script src="{% static "js/board-form.js" %}"></script>
         {% endcompress %}
         {% compress js inline %}
             {% block extra_js %}{% endblock %}

@@ -37,8 +37,12 @@ class Image(BaseImage):
 
 class Board(models.Model):
     owner = models.ForeignKey(User)
-    board_name = models.CharField(max_length=200)
+    board_name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
+    category = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.board_name;
 
 class Pin(models.Model):
     submitter = models.ForeignKey(User)

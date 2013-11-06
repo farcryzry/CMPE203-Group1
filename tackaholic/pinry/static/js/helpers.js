@@ -37,6 +37,10 @@ function getPinData(pinId) {
     return $.get(apiUrl);
 }
 
+function getBoardData(boardId) {
+    var apiUrl = '/api/v1/board/'+boardId+'/?format=json';
+    return $.get(apiUrl);
+}
 
 function deletePinData(pinId) {
     var apiUrl = '/api/v1/pin/'+pinId+'/?format=json';
@@ -54,6 +58,14 @@ function postPinData(data) {
     });
 }
 
+function postBoardData(data) {
+    return $.ajax({
+        type: "post",
+        url: "/api/v1/board/",
+        contentType: 'application/json',
+        data: JSON.stringify(data)
+    });
+}
 
 function getUrlParameter(name) {
     var decode = decodeURI(

@@ -1,0 +1,39 @@
+{% verbatim %}
+    <script id="board-form-template" type="text/x-handlebars-template">
+        <div class="modal fade" id="board-form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">New Board</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label" for="board-form-name">Board Name</label>
+                                <input type="text" name="board-form-name" id="board-form-name" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="board-form-description">Description</label>
+                                <textarea name="board-form-description" id="board-form-description" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="board-form-category">Category</label>
+                                <select name="board-form-category" id="board-form-category" class="form-control">
+                                    <option>Pets</option>
+                                    <option>Garden</option>
+                                    <option>Food</option>
+                                    <option>Scenery</option>
+                                    <option>People</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" id="board-form-close">Cancel</a>
+                        <button type="submit" class="btn btn-primary" id="board-form-submit" style="margin-right:20px">Add Board</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+{% endverbatim %}
