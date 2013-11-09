@@ -38,8 +38,7 @@ $(window).load(function() {
         $('body').append(renderTemplate('#board-form-template', ''));
         var modal = $('#board-form'),
             formFields = [$('#board-form-name'), $('#board-form-description'),
-            $('#board-form-category')],
-            boardFromUrl = getUrlParameter('board-image-url');
+            $('#board-form-category')];
         // If editable grab existing data
         if (editBoardId) {
             var promise = getBoardData(editBoardId);
@@ -86,17 +85,15 @@ $(window).load(function() {
                 };
                 var promise = postBoardData(data);
                 promise.success(function(board) {
-                    if (boardFromUrl) return window.close();
                     board.editable = true;
                     dismissModal(modal);
                 });
                 promise.error(function() {
-                    message('Problem saving image.', 'alert alert-error');
+                    message('Problem creating new board.', 'alert alert-error');
                 });
             }
         });
         $('#board-form-close').click(function() {
-            if (boardFromUrl) return window.close();
             dismissModal(modal);
         });
     }
@@ -109,8 +106,8 @@ $(window).load(function() {
         createBoardForm(editBoardId);
     }
 
-    if (getUrlParameter('board-image-url')) {
-        createBoardForm();
-    }
+  //  if (getUrlParameter('board-image-url')) {
+   //     createBoardForm();
+        // }
     // End Init
 });

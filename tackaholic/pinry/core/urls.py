@@ -3,9 +3,9 @@ from django.views.generic import TemplateView
 
 from tastypie.api import Api
 
-from .api import ImageResource, ThumbnailResource, PinResource, UserResource
+from .api import ImageResource, ThumbnailResource, PinResource, UserResource, BoardResource
 from .feeds import LatestPins, LatestUserPins, LatestTagPins
-from .views import CreateImage, BoardMgmt
+from .views import CreateImage, CreateBoard
 
 
 v1_api = Api(api_name='v1')
@@ -13,6 +13,7 @@ v1_api.register(ImageResource())
 v1_api.register(ThumbnailResource())
 v1_api.register(PinResource())
 v1_api.register(UserResource())
+v1_api.register(BoardResource())
 
 
 urlpatterns = patterns('',
@@ -34,5 +35,7 @@ urlpatterns = patterns('',
         name='recent-pins'),
     url(r'^$', TemplateView.as_view(template_name='core/pins.html'),
         name='recent-pins'),
-    url(r'^board/$', BoardMgmt.as_view(), name='board'),
+    url(r'^board/$', TemplateView.as_view(template_name='core/board.html'), name='board'),
+    url(r'^board/create-board/$', CreateBoard.as_view(), name='create-board'),
+
 )

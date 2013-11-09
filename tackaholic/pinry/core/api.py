@@ -5,7 +5,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
 from django_images.models import Thumbnail
 
-from .models import Pin, Image
+from .models import Pin, Image, Board
 from ..users.models import User
 
 
@@ -140,3 +140,34 @@ class PinResource(ModelResource):
         include_resource_uri = False
         always_return_data = True
         authorization = PinryAuthorization()
+
+class BoardResource(ModelResource):
+    owner = fields.ToOneField(UserResource, 'owner', full=True)
+    description = fields.CharField()
+    category = fields.CharField()
+
+    def hydrate(self, bundle):
+        """Run some early/generic processing
+
+        Make sure that user is authorized to create Pins first, before
+        we hydrate the Image resource, creating the Image object in process
+        """
+        owner = bundle.data.get('owner', None)
+        if not owner:
+            bundle.data['owner'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
+        else:
+            if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == owner:
+                raise Unauthorized("You are not authorized to create Board for other users")
+        return bundle
+    
+    class Meta:
+        fields = ['id', 'board_name','description', 'category']
+        ordering = ['id']
+        filtering = {
+            'owner': ALL_WITH_RELATIONS
+        }
+        queryset = Board.objects.all()
+        resource_name = 'board'
+        include_resource_uri = False
+        always_return_data = True
+        #authorization = PinryAuthorization()
