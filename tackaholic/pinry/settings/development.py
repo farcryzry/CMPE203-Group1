@@ -13,3 +13,5 @@ DATABASES = {
 }
 
 SECRET_KEY = 'fake-key'
+
+AUTH_PROFILE_MODULE = 'users.UserProfile'

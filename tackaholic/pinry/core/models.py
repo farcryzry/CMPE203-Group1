@@ -35,14 +35,19 @@ class Image(BaseImage):
     class Meta:
         proxy = True
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+
 class Board(models.Model):
     owner = models.ForeignKey(User)
-    board_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    category = models.CharField(max_length=100)
+    category = models.ForeignKey(Category)
+    is_public = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.board_name;
+        return self.board_name
 
 class Pin(models.Model):
     submitter = models.ForeignKey(User)
@@ -52,7 +57,7 @@ class Pin(models.Model):
     image = models.ForeignKey(Image, related_name='pin')
     published = models.DateTimeField(auto_now_add=True)
     tags = TaggableManager()
-    #board = models.ForeignKey(Board, blank=True, null=True)
+    board = models.ForeignKey(Board, blank=True, null=True)
 
     def __unicode__(self):
         return self.url
