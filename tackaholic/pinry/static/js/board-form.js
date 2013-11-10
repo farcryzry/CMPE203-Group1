@@ -50,7 +50,6 @@ $(window).load(function() {
             });
         }
         modal.modal('show');
-
         // Submit board on post click
         $('#board-form-submit').click(function(e) {
             e.preventDefault();

@@ -143,25 +143,26 @@ class PinResource(ModelResource):
 
 class BoardResource(ModelResource):
     owner = fields.ToOneField(UserResource, 'owner', full=True)
-    description = fields.CharField()
-    category = fields.CharField()
+    #name = fields.CharField()
+    #description = fields.CharField()
+    #category = fields.CharField()
 
-    def hydrate(self, bundle):
-        """Run some early/generic processing
+    #def hydrate(self, bundle):
+    #    """Run some early/generic processing
+    #
+    #    Make sure that user is authorized to create Pins first, before
+    #    we hydrate the Image resource, creating the Image object in process
+    #    """
+    #    owner = bundle.data.get('owner', None)
+    #    if not owner:
+    #        bundle.data['owner'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
+    #    else:
+    #        if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == owner:
+    #            raise Unauthorized("You are not authorized to create Board for other users")
+    #    return bundle
 
-        Make sure that user is authorized to create Pins first, before
-        we hydrate the Image resource, creating the Image object in process
-        """
-        owner = bundle.data.get('owner', None)
-        if not owner:
-            bundle.data['owner'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
-        else:
-            if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == owner:
-                raise Unauthorized("You are not authorized to create Board for other users")
-        return bundle
-    
     class Meta:
-        fields = ['id', 'board_name','description', 'category']
+        #fields = ['id', 'name','description', 'category']
         ordering = ['id']
         filtering = {
             'owner': ALL_WITH_RELATIONS
@@ -170,4 +171,4 @@ class BoardResource(ModelResource):
         resource_name = 'board'
         include_resource_uri = False
         always_return_data = True
-        #authorization = PinryAuthorization()
+        authorization = DjangoAuthorization()

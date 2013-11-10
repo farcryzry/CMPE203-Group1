@@ -49,6 +49,13 @@ function deletePinData(pinId) {
     });
 }
 
+function deleteBoardData(boardId) {
+    var apiUrl = '/api/v1/pin/'+boardId+'/?format=json';
+    return $.ajax(apiUrl, {
+        type: 'DELETE'
+    });
+}
+
 function postPinData(data) {
     return $.ajax({
         type: "post",

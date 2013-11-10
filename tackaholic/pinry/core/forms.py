@@ -1,7 +1,7 @@
 from django import forms
 
 from django_images.models import Image
-from models import Board
+#from models import Board
 
 
 FIELD_NAME_MAPPING = {
@@ -17,7 +17,7 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('image',)
-
-class BoardForm(forms.ModelForm):
-    class Meta:
-        model = Board
+#
+#class BoardForm(forms.ModelForm):
+#    class Meta:
+#        model = Board

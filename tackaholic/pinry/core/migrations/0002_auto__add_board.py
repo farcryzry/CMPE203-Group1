@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'core_board', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('board_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('category', self.gf('django.db.models.fields.CharField')(max_length=100)),
         ))
@@ -63,7 +63,7 @@ class Migration(SchemaMigration):
         },
         u'core.board': {
             'Meta': {'object_name': 'Board'},
-            'board_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'category': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

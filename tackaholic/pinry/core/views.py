@@ -7,7 +7,7 @@ from django_images.models import Image
 from braces.views import JSONResponseMixin, LoginRequiredMixin
 from django_images.models import Thumbnail
 
-from .forms import ImageForm, BoardForm
+from .forms import ImageForm#, BoardForm
 from pinry.core.models import Board
 
 
@@ -35,10 +35,10 @@ class CreateImage(JSONResponseMixin, LoginRequiredMixin, CreateView):
         return self.render_json_response({'error': form.errors})
 
 
-class CreateBoard(JSONResponseMixin, LoginRequiredMixin, CreateView):
+class CreateBoard(CreateView):
     template_name = None  # JavaScript-only view
     model = Board
-    form_class = BoardForm
+    #form_class = BoardForm
 
     def get(self, request, *args, **kwargs):
         if not request.is_ajax():

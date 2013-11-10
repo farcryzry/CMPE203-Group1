@@ -1,6 +1,6 @@
 from django.core.validators import email_re
 
-from pinry.core.models import Pin
+from pinry.core.models import Pin, Board
 from pinry.users.models import User
 
 
@@ -32,4 +32,6 @@ class CombinedAuthBackend(object):
         """
         if obj and isinstance(obj, Pin):
             return obj.submitter == user
+        if obj and isinstance(obj, Board):
+            return obj.owner == user
         return False
