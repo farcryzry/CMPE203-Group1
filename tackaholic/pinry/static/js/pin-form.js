@@ -50,6 +50,7 @@ $(window).load(function() {
         modal.modal('hide');
         setTimeout(function() {
             modal.remove();
+            $('.modal-backdrop').remove();
         }, 200);
     }
     // End Helper Functions

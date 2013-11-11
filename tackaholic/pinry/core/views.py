@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView
 from django_images.models import Image
+from django.contrib.auth.decorators import login_required
 
 from braces.views import JSONResponseMixin, LoginRequiredMixin
 from django_images.models import Thumbnail
@@ -33,7 +34,6 @@ class CreateImage(JSONResponseMixin, LoginRequiredMixin, CreateView):
 
     def form_invalid(self, form):
         return self.render_json_response({'error': form.errors})
-
 
 class CreateBoard(CreateView):
     template_name = None  # JavaScript-only view
