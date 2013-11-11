@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.models import User
 
+from .models import Profile
 
 class UserCreationForm(forms.ModelForm):
     """
@@ -36,3 +37,8 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ("location", "email_alternative")

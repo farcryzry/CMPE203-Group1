@@ -101,7 +101,7 @@ textarea {
     margin-bottom: -1px;
 }
 
-#id_username {
+#id_username, #id_location {
     -webkit-border-bottom-right-radius: 0;
      -webkit-border-bottom-left-radius: 0;
         -moz-border-radius-bottomright: 0;
@@ -116,7 +116,7 @@ textarea {
             border-radius: 0;
 }
 
-#id_password {
+#id_password, #id_email_alternative {
     margin-bottom: 15px;
     -webkit-border-top-right-radius: 0;
      -webkit-border-top-left-radius: 0;
@@ -301,3 +301,7 @@ textarea {
     text-align: center;
 }
 /* End Pins */
+
+#button_container {
+    text-align: center;
+}

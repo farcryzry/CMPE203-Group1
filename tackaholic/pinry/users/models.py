@@ -19,14 +19,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
 
     location = models.CharField(max_length=100, blank=True)
-    photo = models.ForeignKey(Image, related_name='profile')
+    #photo = models.ForeignKey(Image, related_name='profile')
     email_alternative = models.EmailField(blank=True)
 
-    def __str__(self):
-          return "%s's profile" % self.user
-
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            profile, created = UserProfile.objects.get_or_create(user=instance)
-
-    post_save.connect(create_user_profile, sender=User)
+User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])

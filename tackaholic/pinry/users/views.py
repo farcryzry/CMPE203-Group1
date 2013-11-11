@@ -8,8 +8,11 @@ from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.utils.functional import lazy
 from django.views.generic import CreateView
+from django.shortcuts import render_to_response
+from django.core.context_processors import csrf
+from django.template import RequestContext
 
-from .forms import UserCreationForm
+from .forms import UserCreationForm, ProfileForm
 from pinry.users.models import User
 
 
@@ -47,3 +50,21 @@ def logout_user(request):
 
 def private(request):
     return TemplateResponse(request, 'users/private.html', None)
+
+@login_required
+def account_settings(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You have successfully saved your settings.')
+            return HttpResponseRedirect('/settings')
+
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
+    args = {}
+    args.update(csrf(request))
+    args['form'] = form
+
+    return render_to_response('users/settings.html', args, context_instance=RequestContext(request))

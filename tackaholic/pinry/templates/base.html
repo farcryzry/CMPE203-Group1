@@ -83,6 +83,7 @@
                         {% if user.is_authenticated %}
                             <li><a onclick="pinForm()">New Pin</a></li>
                             <li><a href="{% url 'core:board' %}">Board</a></li>
+                            <li><a href="{% url 'users:settings' %}">Settings</a></li>
                             <li><a href="{% url 'users:logout' %}">Logout</a></li>
                             <li>{% include "includes/bookmarklet_link.html" %}</li>
                         {% else %}
