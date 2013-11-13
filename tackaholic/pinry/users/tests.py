@@ -5,7 +5,7 @@ from django.test.utils import override_settings
 import mock
 
 from .auth.backends import CombinedAuthBackend
-from ..core.models import Image, Pin
+from ..core.models import Image, Tack
 from .models import User
 
 
@@ -38,16 +38,16 @@ class CombinedAuthBackendTest(TestCase):
     def test_has_perm_on_pin(self):
         image = Image.objects.create_for_url('http://testserver/mocked/screenshot.png')
         user = User.objects.get(pk=1)
-        pin = Pin.objects.create(submitter=user, image=image)
-        self.assertTrue(self.backend.has_perm(user, 'add_pin', pin))
+        tack = Tack.objects.create(submitter=user, image=image)
+        self.assertTrue(self.backend.has_perm(user, 'add_pin', tack))
 
     @mock.patch('requests.get', mock_requests_get)
     def test_has_perm_on_pin_unauthorized(self):
         image = Image.objects.create_for_url('http://testserver/mocked/screenshot.png')
         user = User.objects.get(pk=1)
         other_user = User.objects.create_user('test', 'test@example.com', 'test')
-        pin = Pin.objects.create(submitter=user, image=image)
-        self.assertFalse(self.backend.has_perm(other_user, 'add_pin', pin))
+        tack = Tack.objects.create(submitter=user, image=image)
+        self.assertFalse(self.backend.has_perm(other_user, 'add_pin', tack))
 
 
 class CreateUserTest(TestCase):
@@ -58,13 +58,13 @@ class CreateUserTest(TestCase):
             'password': 'password'
         }
         response = self.client.post(reverse('users:register'), data=data)
-        self.assertRedirects(response, reverse('core:recent-pins'))
+        self.assertRedirects(response, reverse('core:recent-tacks'))
         self.assertIn('_auth_user_id', self.client.session)
 
     @override_settings(ALLOW_NEW_REGISTRATIONS=False)
     def test_create_post_not_allowed(self):
         response = self.client.get(reverse('users:register'))
-        self.assertRedirects(response, reverse('core:recent-pins'))
+        self.assertRedirects(response, reverse('core:recent-tacks'))
 
 
 class LogoutViewTest(TestCase):
@@ -74,4 +74,4 @@ class LogoutViewTest(TestCase):
 
     def test_logout_view(self):
         response = self.client.get(reverse('users:logout'))
-        self.assertRedirects(response, reverse('core:recent-pins'))
+        self.assertRedirects(response, reverse('core:recent-tacks'))

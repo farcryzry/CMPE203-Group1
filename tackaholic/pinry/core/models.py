@@ -50,12 +50,12 @@ class Board(models.Model):
     def __unicode__(self):
         return self.name
 
-class Pin(models.Model):
+class Tack(models.Model):
     submitter = models.ForeignKey(User)
     url = models.URLField(null=True)
     origin = models.URLField(null=True)
     description = models.TextField(blank=True, null=True)
-    image = models.ForeignKey(Image, related_name='pin')
+    image = models.ForeignKey(Image, related_name='tack')
     published = models.DateTimeField(auto_now_add=True)
     tags = TaggableManager()
     #board = models.ForeignKey(Board, blank=True, null=True)

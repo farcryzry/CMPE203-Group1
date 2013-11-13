@@ -69,11 +69,11 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
-        u'core.pin': {
-            'Meta': {'object_name': 'Pin'},
+        u'core.tack': {
+            'Meta': {'object_name': 'Tack'},
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'pin'", 'to': u"orm['django_images.Image']"}),
+            'image': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tack'", 'to': u"orm['django_images.Image']"}),
             'origin': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'}),
             'published': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),

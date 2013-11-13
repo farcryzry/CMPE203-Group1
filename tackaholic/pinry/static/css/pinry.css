@@ -284,11 +284,11 @@ textarea {
 }
 
 /* Start Pins */
-#pins {
+#tacks {
     top: 80px;
 }
 
-.pin {
+.tack {
     background: #fff;
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
@@ -301,7 +301,7 @@ textarea {
     width: 240px;
 }
 
-.pin .editable {
+.tack .editable {
     background: rgba(255, 255, 255, 0.4);
     border: 2px solid rgba(255, 255, 255, 0.4);
     -webkit-border-radius: 4px;
@@ -313,11 +313,11 @@ textarea {
     color: white;
 }
 
-.pin:hover .editable {
+.tack:hover .editable {
     display: block;
 }
 
-.pin .editable .borderable {
+.tack .editable .borderable {
     background: rgba(0, 0, 0, 0.8);
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
@@ -327,13 +327,13 @@ textarea {
     display: inline-block;
 }
 
-.pin .image-wrapper {
+.tack .image-wrapper {
     background-image: url("../img/loader.gif");
     background-position: center center;
     background-repeat: no-repeat;
 }
 
-.pin img {
+.tack img {
     -webkit-border-top-left-radius: 3px;
         -moz-border-radius-topleft: 3px;
             border-top-left-radius: 3px;
@@ -348,7 +348,7 @@ textarea {
     width: 240px;
 }
 
-.pin p {
+.tack p {
     border-bottom: 1px solid #ddd;
     font-family: 'Georgia', 'Times', 'Times New Roman', serif;
     font-size: 12px;
@@ -356,12 +356,12 @@ textarea {
     padding: 8px;
 }
 
-.pin strong {
+.tack strong {
     color: #777;
     font-weight: normal;
 }
 
-.pin-footer {
+.tack-footer {
     color: #777;
     cursor: default;
     font-size: 12px;
@@ -369,19 +369,19 @@ textarea {
     padding: 10px;
 }
 
-.pin-footer .dim {
+.tack-footer .dim {
     color: #999;
     font-weight: normal;
 }
 
-.pin-footer .avatar {
+.tack-footer .avatar {
     background: white;
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
 }
 
-.pin-footer .avatar img {
+.tack-footer .avatar img {
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
@@ -389,7 +389,7 @@ textarea {
     width: 30px;
 }
 
-.pin-footer .text {
+.tack-footer .text {
     line-height: 16px;
     margin-top: -1px;
     width: 180px;

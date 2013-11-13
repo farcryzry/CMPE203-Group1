@@ -8,7 +8,7 @@ from django_images.models import Thumbnail
 import factory
 from taggit.models import Tag
 
-from ..models import Pin, Image
+from ..models import Tack, Image
 from ...users.models import User
 
 
@@ -49,7 +49,7 @@ class ImageFactory(factory.Factory):
 
 
 class PinFactory(factory.Factory):
-    FACTORY_FOR = Pin
+    FACTORY_FOR = Tack
 
     submitter = factory.SubFactory(UserFactory)
     image = factory.SubFactory(ImageFactory)

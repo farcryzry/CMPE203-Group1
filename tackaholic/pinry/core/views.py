@@ -19,7 +19,7 @@ class CreateImage(JSONResponseMixin, LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         if not request.is_ajax():
-            return HttpResponseRedirect(reverse('core:recent-pins'))
+            return HttpResponseRedirect(reverse('core:recent-tacks'))
         return super(CreateImage, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):

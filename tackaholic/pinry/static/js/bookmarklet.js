@@ -24,7 +24,7 @@ $(document).ready(function() {
     // Start Helper Functions
     function getFormUrl() {
         var hostUrl = $('#pinry-bookmarklet').attr('src').split('/')[2];
-        var formUrl = '/pins/pin-form/?pin-image-url=';
+        var formUrl = '/tacks/tack-form/?tack-image-url=';
         return 'http://'+hostUrl+formUrl;
     }
 

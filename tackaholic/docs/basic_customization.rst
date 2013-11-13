@@ -19,7 +19,7 @@ We currently have two custom settings you can change in
   # Set to False to disable people from creating new accounts.
   ALLOW_NEW_REGISTRATIONS = False
 
-  # Set to False to force users to login before seeing any pins. 
+  # Set to False to force users to login before seeing any tacks.
   PUBLIC = True
 
 ``ALLOW_NEW_REGISTRATIONS`` by default is set to False to prevent random people
@@ -28,6 +28,6 @@ from signing up to your Pinry, to create new private users you can use Django's
 temporarily while you get your friends/family/coworkers to sign up.
 
 ``PUBLIC`` by default is set to True, if you set to False users will have to
-login to see any of your pins. This is a great way to create a completely
+login to see any of your tacks. This is a great way to create a completely
 private system for a few users or just yourself.
 

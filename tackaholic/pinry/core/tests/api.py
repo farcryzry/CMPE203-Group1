@@ -6,7 +6,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.test import ResourceTestCase
 
 from .helpers import ImageFactory, PinFactory, UserFactory
-from ..models import Pin, Image
+from ..models import Tack, Image
 from ...users.models import User
 
 
@@ -72,9 +72,9 @@ class PinResourceTest(ResourceTestCase):
             'url': url,
             'description': 'That\'s an Apple!'
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertHttpCreated(response)
-        self.assertEqual(Pin.objects.count(), 1)
+        self.assertEqual(Tack.objects.count(), 1)
         self.assertEqual(Image.objects.count(), 1)
 
         # submitter is optional, current user will be used by default
@@ -83,7 +83,7 @@ class PinResourceTest(ResourceTestCase):
             'description': 'That\'s an Apple!',
             'origin': None
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertHttpCreated(response)
 
     @mock.patch('requests.get', mock_requests_get)
@@ -95,12 +95,12 @@ class PinResourceTest(ResourceTestCase):
             'description': 'That\'s an Apple!',
             'tags': []
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertHttpCreated(response)
-        self.assertEqual(Pin.objects.count(), 1)
+        self.assertEqual(Tack.objects.count(), 1)
         self.assertEqual(Image.objects.count(), 1)
-        pin = Pin.objects.get(url=url)
-        self.assertEqual(pin.tags.count(), 0)
+        tack = Tack.objects.get(url=url)
+        self.assertEqual(tack.tags.count(), 0)
 
     @mock.patch('requests.get', mock_requests_get)
     def test_post_create_url_unauthorized(self):
@@ -112,8 +112,8 @@ class PinResourceTest(ResourceTestCase):
             'tags': []
         }
         with self.assertRaises(Unauthorized):
-            response = self.api_client.post('/api/v1/pin/', data=post_data)
-        self.assertEqual(Pin.objects.count(), 0)
+            response = self.api_client.post('/api/v1/tack/', data=post_data)
+        self.assertEqual(Tack.objects.count(), 0)
         self.assertEqual(Image.objects.count(), 0)
 
     @mock.patch('requests.get', mock_requests_get)
@@ -125,11 +125,11 @@ class PinResourceTest(ResourceTestCase):
             'description': 'That\'s an Apple!',
             'origin': None
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertHttpCreated(response)
-        self.assertEqual(Pin.objects.count(), 1)
+        self.assertEqual(Tack.objects.count(), 1)
         self.assertEqual(Image.objects.count(), 1)
-        self.assertEqual(Pin.objects.get(url=url).origin, None)
+        self.assertEqual(Tack.objects.get(url=url).origin, None)
 
     @mock.patch('requests.get', mock_requests_get)
     def test_post_create_url_with_origin(self):
@@ -141,11 +141,11 @@ class PinResourceTest(ResourceTestCase):
             'description': 'That\'s an Apple!',
             'origin': origin
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertHttpCreated(response)
-        self.assertEqual(Pin.objects.count(), 1)
+        self.assertEqual(Tack.objects.count(), 1)
         self.assertEqual(Image.objects.count(), 1)
-        self.assertEqual(Pin.objects.get(url=url).origin, origin)
+        self.assertEqual(Tack.objects.get(url=url).origin, origin)
 
     def test_post_create_obj(self):
         image = ImageFactory()
@@ -155,74 +155,74 @@ class PinResourceTest(ResourceTestCase):
             'description': 'That\'s something else (probably a CC logo)!',
             'tags': ['random', 'tags'],
         }
-        response = self.api_client.post('/api/v1/pin/', data=post_data)
+        response = self.api_client.post('/api/v1/tack/', data=post_data)
         self.assertEqual(self.deserialize(response)['id'], 1)
         self.assertHttpCreated(response)
         # A number of Image objects should stay the same as we are using an existing image
         self.assertEqual(Image.objects.count(), 1)
-        self.assertEqual(Pin.objects.count(), 1)
+        self.assertEqual(Tack.objects.count(), 1)
         self.assertEquals(Tag.objects.count(), 2)
 
     def test_put_detail_unauthenticated(self):
         self.api_client.client.logout()
-        uri = '/api/v1/pin/{}/'.format(PinFactory().pk)
+        uri = '/api/v1/tack/{}/'.format(PinFactory().pk)
         response = self.api_client.put(uri, format='json', data={})
         self.assertHttpUnauthorized(response)
 
     def test_put_detail_unauthorized(self):
-        uri = '/api/v1/pin/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
         user = UserFactory(password='password')
         self.api_client.client.login(username=user.username, password='password')
         response = self.api_client.put(uri, format='json', data={})
         self.assertHttpUnauthorized(response)
 
     def test_put_detail(self):
-        pin = PinFactory(submitter=self.user)
-        uri = '/api/v1/pin/{}/'.format(pin.pk)
+        tack = PinFactory(submitter=self.user)
+        uri = '/api/v1/tack/{}/'.format(tack.pk)
         new = {'description': 'Updated description'}
 
         response = self.api_client.put(uri, format='json', data=new)
         self.assertHttpAccepted(response)
-        self.assertEqual(Pin.objects.count(), 1)
-        self.assertEqual(Pin.objects.get(pk=pin.pk).description, new['description'])
+        self.assertEqual(Tack.objects.count(), 1)
+        self.assertEqual(Tack.objects.get(pk=tack.pk).description, new['description'])
 
     def test_delete_detail_unauthenticated(self):
-        uri = '/api/v1/pin/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
         self.api_client.client.logout()
         self.assertHttpUnauthorized(self.api_client.delete(uri))
 
     def test_delete_detail_unauthorized(self):
-        uri = '/api/v1/pin/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
         User.objects.create_user('test', 'test@example.com', 'test')
         self.api_client.client.login(username='test', password='test')
         self.assertHttpUnauthorized(self.api_client.delete(uri))
 
     def test_delete_detail(self):
-        uri = '/api/v1/pin/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
         self.assertHttpAccepted(self.api_client.delete(uri))
-        self.assertEqual(Pin.objects.count(), 0)
+        self.assertEqual(Tack.objects.count(), 0)
 
     def test_get_list_json_ordered(self):
-        _, pin = PinFactory(), PinFactory()
-        response = self.api_client.get('/api/v1/pin/', format='json', data={'order_by': '-id'})
+        _, tack = PinFactory(), PinFactory()
+        response = self.api_client.get('/api/v1/tack/', format='json', data={'order_by': '-id'})
         self.assertValidJSONResponse(response)
-        self.assertEqual(self.deserialize(response)['objects'][0]['id'], pin.id)
+        self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.id)
 
     def test_get_list_json_filtered_by_tags(self):
-        pin = PinFactory()
-        response = self.api_client.get('/api/v1/pin/', format='json', data={'tag': pin.tags.get(pk=1)})
+        tack = PinFactory()
+        response = self.api_client.get('/api/v1/tack/', format='json', data={'tag': tack.tags.get(pk=1)})
         self.assertValidJSONResponse(response)
-        self.assertEqual(self.deserialize(response)['objects'][0]['id'], pin.pk)
+        self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.pk)
 
     def test_get_list_json_filtered_by_submitter(self):
-        pin = PinFactory(submitter=self.user)
-        response = self.api_client.get('/api/v1/pin/', format='json', data={'submitter__username': self.user.username})
+        tack = PinFactory(submitter=self.user)
+        response = self.api_client.get('/api/v1/tack/', format='json', data={'submitter__username': self.user.username})
         self.assertValidJSONResponse(response)
-        self.assertEqual(self.deserialize(response)['objects'][0]['id'], pin.pk)
+        self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.pk)
 
     def test_get_list_json(self):
         image = ImageFactory()
-        pin = PinFactory(**{
+        tack = PinFactory(**{
             'submitter': self.user,
             'image': image,
             'url': 'http://testserver/mocked/logo.png',
@@ -232,10 +232,10 @@ class PinResourceTest(ResourceTestCase):
         standard = filter_generator_for('standard')(image)
         thumbnail = filter_generator_for('thumbnail')(image)
         square = filter_generator_for('square')(image)
-        response = self.api_client.get('/api/v1/pin/', format='json')
+        response = self.api_client.get('/api/v1/tack/', format='json')
         self.assertValidJSONResponse(response)
         self.assertDictEqual(self.deserialize(response)['objects'][0], {
-            u'id': pin.id,
+            u'id': tack.id,
             u'submitter': {
                 u'username': unicode(self.user.username),
                 u'gravatar': unicode(self.user.gravatar)
@@ -260,8 +260,8 @@ class PinResourceTest(ResourceTestCase):
                     u'height': square.height,
                     },
             },
-            u'url': pin.url,
-            u'origin': pin.origin,
-            u'description': pin.description,
-            u'tags': [tag.name for tag in pin.tags.all()]
+            u'url': tack.url,
+            u'origin': tack.origin,
+            u'description': tack.description,
+            u'tags': [tag.name for tag in tack.tags.all()]
         })

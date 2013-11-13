@@ -8,21 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Pin'
+        # Adding model 'Tack'
         db.create_table(u'core_pin', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
             ('origin', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(related_name='pin', to=orm['django_images.Image'])),
+            ('image', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tack', to=orm['django_images.Image'])),
             ('published', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
-        db.send_create_signal(u'core', ['Pin'])
+        db.send_create_signal(u'core', ['Tack'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Pin'
+        # Deleting model 'Tack'
         db.delete_table(u'core_pin')
 
 
@@ -63,11 +63,11 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'core.pin': {
-            'Meta': {'object_name': 'Pin'},
+        u'core.tack': {
+            'Meta': {'object_name': 'Tack'},
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'pin'", 'to': u"orm['django_images.Image']"}),
+            'image': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tack'", 'to': u"orm['django_images.Image']"}),
             'origin': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'}),
             'published': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),

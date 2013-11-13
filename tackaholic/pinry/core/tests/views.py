@@ -17,7 +17,7 @@ class CreateImageTest(TestCase):
 
     def test_get_browser(self):
         response = self.client.get(reverse('core:create-image'))
-        self.assertRedirects(response, reverse('core:recent-pins'))
+        self.assertRedirects(response, reverse('core:recent-tacks'))
 
     def test_get_xml_http_request(self):
         with self.assertRaises(TemplateDoesNotExist):

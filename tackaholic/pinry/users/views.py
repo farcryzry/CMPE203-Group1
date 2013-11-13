@@ -23,12 +23,12 @@ class CreateUser(CreateView):
     template_name = 'users/register.html'
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('core:recent-pins')
+    success_url = reverse_lazy('core:recent-tacks')
 
     def get(self, request, *args, **kwargs):
         if not settings.ALLOW_NEW_REGISTRATIONS:
             messages.error(request, "The admin of this service is not allowing new registrations.")
-            return HttpResponseRedirect(reverse('core:recent-pins'))
+            return HttpResponseRedirect(reverse('core:recent-tacks'))
         return super(CreateUser, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -45,7 +45,7 @@ class CreateUser(CreateView):
 def logout_user(request):
     logout(request)
     messages.success(request, 'You have successfully logged out.')
-    return HttpResponseRedirect(reverse('core:recent-pins'))
+    return HttpResponseRedirect(reverse('core:recent-tacks'))
 
 
 def private(request):

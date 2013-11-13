@@ -1,0 +1,38 @@
+{% verbatim %}
+    <script id="tack-form-template" type="text/x-handlebars-template">
+        <div class="modal fade" id="tack-form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">New Tack</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-6" id="tack-form-image-preview"></div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" for="tack-form-image-url">Image URL</label>
+                                <input type="text" name="tack-form-image-url" id="tack-form-image-url" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="tack-form-image-upload">Image Upload</label>
+                                <div id="tack-form-image-upload"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tack-form-description">Description</label>
+                                <textarea name="tack-form-description" id="tack-form-description" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="tack-form-tags">Tags</label>
+                                <input type="text" name="tack-form-tags" id="tack-form-tags" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" id="tack-form-close">Cancel</a>
+                        <button type="submit" class="btn btn-primary" id="tack-form-submit" style="margin-right:20px">Tack It</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+{% endverbatim %}

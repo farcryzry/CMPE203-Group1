@@ -17,22 +17,22 @@ $(window).load(function() {
         freeze = typeof freeze !== 'undefined' ? freeze : true;
         if (freeze) {
             $('body').data('scroll-level', $(window).scrollTop());
-            $('#pins').css({
+            $('#tacks').css({
                 'position': 'fixed',
                 'margin-top': -$('body').data('scroll-level')
             });
             $(window).scrollTop(0);
-            /* disable the global pin-loading scroll handler so we don't
-               load pins when scrolling a selected image */
+            /* disable the global tack-loading scroll handler so we don't
+               load tacks when scrolling a selected image */
             $(window).off('scroll');
         } else {
-            $('#pins').css({
+            $('#tacks').css({
                 'position': 'static',
                 'margin-top': 0
             });
             $(window).scrollTop($('body').data('scroll-level'));
-            /* enable the pin-loading scroll handler unless we've already
-               loaded all pins from the server (in which case an element
+            /* enable the tack-loading scroll handler unless we've already
+               loaded all tacks from the server (in which case an element
                with id 'the-end' exists */
             var theEnd = document.getElementById('the-end');
             if (!theEnd) {
@@ -79,11 +79,11 @@ $(window).load(function() {
         var links = $('body').find('.lightbox');
         if (pinFilter) {
             var promise = getPinData(pinFilter);
-            promise.success(function(pin) {
-                createBox(pin);
+            promise.success(function(tack) {
+                createBox(tack);
             });
             promise.error(function() {
-                message('Problem problem fetching pin data.', 'alert alert-error');
+                message('Problem problem fetching tack data.', 'alert alert-error');
             });
         }
         return links.each(function() {
@@ -91,11 +91,11 @@ $(window).load(function() {
             $(this).click(function(e) {
                 e.preventDefault();
                 var promise = getPinData($(this).data('id'));
-                promise.success(function(pin) {
-                    createBox(pin);
+                promise.success(function(tack) {
+                    createBox(tack);
                 });
                 promise.error(function() {
-                    message('Problem problem fetching pin data.', 'alert alert-error');
+                    message('Problem problem fetching tack data.', 'alert alert-error');
                 });
             });
         });

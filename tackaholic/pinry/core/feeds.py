@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django_images.models import Thumbnail
 from taggit.models import Tag
 
-from .models import Pin
+from .models import Tack
 
 
 def filter_generator_for(size):
@@ -20,7 +20,7 @@ def filter_generator_for(size):
 class LatestPins(Feed):
     title = 'Latest Pins'
     link = '/'
-    description = 'The latest pins from around the internet.'
+    description = 'The latest tacks from around the internet.'
 
     domain_name = None
 
@@ -40,7 +40,7 @@ class LatestPins(Feed):
             pass
 
     def items(self):
-        return Pin.objects.order_by('-published')[:15]
+        return Tack.objects.order_by('-published')[:15]
 
     def item_pubdate(self, item):
         return item.published
@@ -65,7 +65,7 @@ class LatestPins(Feed):
 
 
 class LatestUserPins(Feed):
-    description = 'The latest pins from around the internet.'
+    description = 'The latest tacks from around the internet.'
 
     domain_name = None
 
@@ -86,10 +86,10 @@ class LatestUserPins(Feed):
         return 'Latest Pins from ' + obj.username
 
     def link(self, obj):
-        return '/pins/user/' + obj.username + '/'
+        return '/tacks/user/' + obj.username + '/'
 
     def items(self, obj):
-        return Pin.objects.filter(submitter=obj).order_by('-published')[:15]
+        return Tack.objects.filter(submitter=obj).order_by('-published')[:15]
 
     def item_pubdate(self, item):
         return item.published
@@ -115,7 +115,7 @@ class LatestUserPins(Feed):
 
 class LatestTagPins(Feed):
     link = '/'
-    description = 'The latest pins from around the internet.'
+    description = 'The latest tacks from around the internet.'
 
     domain_name = None
 
@@ -136,10 +136,10 @@ class LatestTagPins(Feed):
         return 'Latest Pins in ' + obj.name
 
     def link(self, obj):
-        return '/pins/tag/' + obj.name + '/'
+        return '/tacks/tag/' + obj.name + '/'
 
     def items(self, obj):
-        return Pin.objects.filter(tags=obj).order_by('-published')[:15]
+        return Tack.objects.filter(tags=obj).order_by('-published')[:15]
 
     def item_pubdate(self, item):
         return item.published

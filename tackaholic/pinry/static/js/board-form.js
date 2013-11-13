@@ -2,9 +2,9 @@
  * Created by lan on 11/5/13.
  */
 /**
- * Pin Form for Pinry
- * Descrip: This is for creation new pins on everything, the bookmarklet, on the
- *          site and even editing pins in some limited situations.
+ * Tack Form for Pinry
+ * Descrip: This is for creation new tacks on everything, the bookmarklet, on the
+ *          site and even editing tacks in some limited situations.
  * Authors: Pinry Contributors
  * Updated: March 3rd, 2013
  * Require: jQuery, Pinry JavaScript Helpers

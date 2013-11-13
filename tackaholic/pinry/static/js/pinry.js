@@ -1,6 +1,6 @@
 /**
  * Pinry
- * Descrip: Core of pinry, loads and tiles pins.
+ * Descrip: Core of pinry, loads and tiles tacks.
  * Authors: Pinry Contributors
  * Updated: Apr 5th, 2013
  * Require: jQuery, Pinry JavaScript Helpers
@@ -9,7 +9,7 @@
 
 $(window).load(function() {
     /**
-     * tileLayout will simply tile/retile the block/pin container when run. This
+     * tileLayout will simply tile/retile the block/tack container when run. This
      * was put into a function in order to adjust frequently on screen size 
      * changes.
      */
@@ -36,7 +36,7 @@ $(window).load(function() {
         for (var b=0; b < blocks.length; b++) {
             // Get the jQuery object of the current block
             block = blocks.eq(b);
-            // Position our new pin in the shortest column
+            // Position our new tack in the shortest column
             var sCol = 0;
             for (var i=0; i < rowSize; i++) {
                 if (colHeights[sCol] > colHeights[i]) sCol = i;
@@ -49,7 +49,7 @@ $(window).load(function() {
             colHeights[sCol] += block.height()+(blockMargin);
         }
 
-        // Edit pin if pencil icon clicked
+        // Edit tack if pencil icon clicked
         $('.glyphicon-pencil').each(function() {
             var thisPin = $(this);
             $(this).off('click');
@@ -69,7 +69,7 @@ $(window).load(function() {
             });
         });
 
-        // Delete pin if trash icon clicked
+        // Delete tack if trash icon clicked
         $('.glyphicon-trash').each(function() {
             var thisPin = $(this);
             $(this).off('click');
@@ -77,8 +77,8 @@ $(window).load(function() {
                 $(this).off('click');
                 var promise = deletePinData($(this).data('id'));
                 promise.success(function() {
-                    thisPin.closest('.pin').remove();
-                    tileLayout('pins', 'pin');
+                    thisPin.closest('.tack').remove();
+                    tileLayout('tacks', 'tack');
                 });
                 promise.error(function() {
                     message('Problem deleting image.', 'alert alert-error');
@@ -120,7 +120,7 @@ $(window).load(function() {
     }
 
     /**
-     * On scroll load more pins from the server
+     * On scroll load more tacks from the server
      */
     window.scrollHandler = function() {
         var windowPosition = $(window).scrollTop() + $(window).height();
@@ -129,7 +129,7 @@ $(window).load(function() {
     }
 
     /**
-     * Load our pins using the pins template into our UI, be sure to define a
+     * Load our tacks using the tacks template into our UI, be sure to define a
      * offset outside the function to keep a running tally of your location.
      */
     function loadPins() {
@@ -139,34 +139,34 @@ $(window).load(function() {
         // Show our loading symbol
         $('.spinner').css('display', 'block');
 
-        // Fetch our pins from the api using our current offset
-        var apiUrl = '/api/v1/pin/?format=json&order_by=-id&offset='+String(offset);
+        // Fetch our tacks from the api using our current offset
+        var apiUrl = '/api/v1/tack/?format=json&order_by=-id&offset='+String(offset);
         if (tagFilter) apiUrl = apiUrl + '&tag=' + tagFilter;
         if (userFilter) apiUrl = apiUrl + '&submitter__username=' + userFilter;
-        $.get(apiUrl, function(pins) {
+        $.get(apiUrl, function(tacks) {
             // Set which items are editable by the current user
-            for (var i=0; i < pins.objects.length; i++) 
-                pins.objects[i].editable = (pins.objects[i].submitter.username == currentUser.username);
+            for (var i=0; i < tacks.objects.length; i++)
+                tacks.objects[i].editable = (tacks.objects[i].submitter.username == currentUser.username);
 
-            // Use the fetched pins as our context for our pins template
-            var template = Handlebars.compile($('#pins-template').html());
-            var html = template({pins: pins.objects});
+            // Use the fetched tacks as our context for our tacks template
+            var template = Handlebars.compile($('#tacks-template').html());
+            var html = template({tacks: tacks.objects});
 
             // Append the newly compiled data to our container
-            $('#pins').append(html);
+            $('#tacks').append(html);
 
             // We need to then wait for images to load in and then tile
-            tileLayout('pins', 'pin');
+            tileLayout('tacks', 'tack');
             lightbox();
-            $('#pins').ajaxStop(function() {
+            $('#tacks').ajaxStop(function() {
                 $('img').load(function() {
                     $(this).fadeIn(300);
                 });
             });
 
-            if (pins.objects.length < apiLimitPerPage) {
+            if (tacks.objects.length < apiLimitPerPage) {
                 $('.spinner').css('display', 'none');
-                if ($('#pins').length != 0) {
+                if ($('#tacks').length != 0) {
                     var theEnd = document.createElement('div');
                     theEnd.id = 'the-end';
                     $(theEnd).html('&mdash; End &mdash;');
@@ -189,7 +189,7 @@ $(window).load(function() {
         // Show our loading symbol
         $('.spinner').css('display', 'block');
 
-        // Fetch our pins from the api using our current offset
+        // Fetch our tacks from the api using our current offset
         var apiUrl = '/api/v1/board/?format=json&order_by=-id&offset='+String(offset);
         if (userFilter) apiUrl = apiUrl + '&owner__username=' + userFilter;
         $.get(apiUrl, function(boards) {
@@ -203,7 +203,7 @@ $(window).load(function() {
                     showBoards.push(boards.objects[i]);
                 }
             }
-            // Use the fetched pins as our context for our pins template
+            // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#boards-template').html());
             var html = template({boards: showBoards});
 
@@ -239,15 +239,15 @@ $(window).load(function() {
 
     // Set offset for loadPins and do our initial load
     var offset = 0;
-    if(urlName.indexOf('pins') >= 0)
+    if(urlName.indexOf('tacks') >= 0)
         loadPins();
     else if (urlName == 'board')
         loadBoards();
 
     // If our window gets resized keep the tiles looking clean and in our window
     $(window).resize(function() {
-        if(urlName.indexOf('pins') >= 0)
-            tileLayout('pins', 'pin');
+        if(urlName.indexOf('tacks') >= 0)
+            tileLayout('tacks', 'tack');
         else if (urlName == 'board')
             tileLayout('boards', 'board');
         lightbox();

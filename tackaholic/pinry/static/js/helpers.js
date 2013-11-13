@@ -33,7 +33,7 @@ function getImageData(imageId) {
 
 
 function getPinData(pinId) {
-    var apiUrl = '/api/v1/pin/'+pinId+'/?format=json';
+    var apiUrl = '/api/v1/tack/'+pinId+'/?format=json';
     return $.get(apiUrl);
 }
 
@@ -43,14 +43,14 @@ function getBoardData(boardId) {
 }
 
 function deletePinData(pinId) {
-    var apiUrl = '/api/v1/pin/'+pinId+'/?format=json';
+    var apiUrl = '/api/v1/tack/'+pinId+'/?format=json';
     return $.ajax(apiUrl, {
         type: 'DELETE'
     });
 }
 
 function deleteBoardData(boardId) {
-    var apiUrl = '/api/v1/pin/'+boardId+'/?format=json';
+    var apiUrl = '/api/v1/tack/'+boardId+'/?format=json';
     return $.ajax(apiUrl, {
         type: 'DELETE'
     });
@@ -59,7 +59,7 @@ function deleteBoardData(boardId) {
 function postPinData(data) {
     return $.ajax({
         type: "post",
-        url: "/api/v1/pin/",
+        url: "/api/v1/tack/",
         contentType: 'application/json',
         data: JSON.stringify(data)
     });

@@ -5,7 +5,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
 from django_images.models import Thumbnail
 
-from .models import Pin, Image, Board
+from .models import Tack, Image, Board
 from ..users.models import User
 
 
@@ -135,8 +135,8 @@ class PinResource(ModelResource):
         filtering = {
             'submitter': ALL_WITH_RELATIONS
         }
-        queryset = Pin.objects.all()
-        resource_name = 'pin'
+        queryset = Tack.objects.all()
+        resource_name = 'tack'
         include_resource_uri = False
         always_return_data = True
         authorization = PinryAuthorization()

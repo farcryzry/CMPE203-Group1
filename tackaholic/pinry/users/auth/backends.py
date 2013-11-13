@@ -1,6 +1,6 @@
 from django.core.validators import email_re
 
-from pinry.core.models import Pin, Board
+from pinry.core.models import Tack, Board
 from pinry.users.models import User
 
 
@@ -28,9 +28,9 @@ class CombinedAuthBackend(object):
 
     def has_perm(self, user, perm, obj=None):
         """
-        A very simplistic authorization mechanism for now. Basically a pin owner can do anything with the pin.
+        A very simplistic authorization mechanism for now. Basically a tack owner can do anything with the tack.
         """
-        if obj and isinstance(obj, Pin):
+        if obj and isinstance(obj, Tack):
             return obj.submitter == user
         if obj and isinstance(obj, Board):
             return obj.owner == user

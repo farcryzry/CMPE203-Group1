@@ -6,26 +6,26 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         {%  if request.resolver_match.kwargs.user %}
-            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/user/{{ request.resolver_match.kwargs.user }}/">
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-tacks/user/{{ request.resolver_match.kwargs.user }}/">
         {% elif request.resolver_match.kwargs.tag %}
-            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/tag/{{ request.resolver_match.kwargs.tag }}/">
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-tacks/tag/{{ request.resolver_match.kwargs.tag }}/">
         {% else %}
-            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-pins/">
+            <link rel="alternate" type="application/rss+xml" href="/feeds/latest-tacks/">
         {% endif %}
 
-        <!--  ___                     ___           ___                 
-             /  /\      ___          /__/\         /  /\          ___   
-            /  /::\    /  /\         \  \:\       /  /::\        /__/|  
-           /  /:/\:\  /  /:/          \  \:\     /  /:/\:\      |  |:|  
-          /  /:/~/:/ /__/::\      _____\__\:\   /  /:/~/:/      |  |:|  
-         /__/:/ /:/  \__\/\:\__  /__/::::::::\ /__/:/ /:/___  __|__|:|  
-         \  \:\/:/      \  \:\/\ \  \:\~~\~~\/ \  \:\/:::::/ /__/::::\  
-          \  \::/        \__\::/  \  \:\  ~~~   \  \::/~~~~     ~\~~\:\ 
+        <!--  ___                     ___           ___
+             /  /\      ___          /__/\         /  /\          ___
+            /  /::\    /  /\         \  \:\       /  /::\        /__/|
+           /  /:/\:\  /  /:/          \  \:\     /  /:/\:\      |  |:|
+          /  /:/~/:/ /__/::\      _____\__\:\   /  /:/~/:/      |  |:|
+         /__/:/ /:/  \__\/\:\__  /__/::::::::\ /__/:/ /:/___  __|__|:|
+         \  \:\/:/      \  \:\/\ \  \:\~~\~~\/ \  \:\/:::::/ /__/::::\
+          \  \::/        \__\::/  \  \:\  ~~~   \  \::/~~~~     ~\~~\:\
            \  \:\        /__/:/    \  \:\        \  \:\           \  \:\
             \  \:\       \__\/      \  \:\        \  \:\           \__\/
              \__\/                   \__\/         \__\/             -->
 
-        <title>{% block title %}Pinry{% endblock %}</title>
+        <title>{% block title %}Tackaholic{% endblock %}</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700"/>
@@ -56,7 +56,7 @@
                 username: "{{ user.username }}",
                 gravatar: "{{ user.gravatar }}"
             },
-            pinFilter = "{{ request.resolver_match.kwargs.pin }}",
+            pinFilter = "{{ request.resolver_match.kwargs.tack }}",
             boardFilter = "{{ request.resolver_match.kwargs.board }}",
             tagFilter = "{{ request.resolver_match.kwargs.tag }}",
             userFilter = "{{ request.resolver_match.kwargs.user }}";
@@ -77,7 +77,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="{% url 'core:recent-pins' %}" class="navbar-brand">
+                    <a href="{% url 'core:recent-tacks' %}" class="navbar-brand">
                         <img src="{% static "img/logo-dark.png" %}" alt="Pinry"/>
                     </a>
                 </div>
@@ -120,8 +120,8 @@
         <!-- Templates -->
         {% include "includes/messages.html" %}
         {% include "includes/lightbox.html" %}
-        {% include "includes/pins.html" %}
-        {% include "includes/pin_form.html" %}
+        {% include "includes/tacks.html" %}
+        {% include "includes/tack_form.html" %}
         {% include "includes/boards.html" %}
         {% include "includes/board_form.html" %}
         {% block extra_templates %}{% endblock %}
@@ -137,7 +137,7 @@
             <script src="{% static "js/messages.js" %}"></script>
             <script src="{% static "js/lightbox.js" %}"></script>
             <script src="{% static "js/pinry.js" %}"></script>
-            <script src="{% static "js/pin-form.js" %}"></script>
+            <script src="{% static "js/tack-form.js" %}"></script>
             <script src="{% static "js/board-form.js" %}"></script>
         {% endcompress %}
         {% compress js inline %}
