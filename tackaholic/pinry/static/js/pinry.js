@@ -239,14 +239,14 @@ $(window).load(function() {
 
     // Set offset for loadPins and do our initial load
     var offset = 0;
-    if(urlName == 'recent-pins')
+    if(urlName.indexOf('pins') >= 0)
         loadPins();
     else if (urlName == 'board')
         loadBoards();
 
     // If our window gets resized keep the tiles looking clean and in our window
     $(window).resize(function() {
-        if(urlName == 'recent-pins')
+        if(urlName.indexOf('pins') >= 0)
             tileLayout('pins', 'pin');
         else if (urlName == 'board')
             tileLayout('boards', 'board');
