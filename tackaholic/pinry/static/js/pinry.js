@@ -13,9 +13,10 @@ $(window).load(function() {
      * was put into a function in order to adjust frequently on screen size 
      * changes.
      */
-    window.tileLayout = function() {
-        var blockContainer = $('#pins'),
-            blocks = blockContainer.children('.pin'),
+    window.tileLayout = function(containerId, blockClass) {
+
+        var blockContainer = $('#' + containerId),
+            blocks = blockContainer.children('.' + blockClass),
             blockMargin = 15,
             blockWidth = 240,
             rowSize = Math.floor(blockContainer.width()/(blockWidth+blockMargin)),
@@ -58,6 +59,16 @@ $(window).load(function() {
             });
         });
 
+        // Edit board if pencil icon clicked
+        $('.glyphicon-edit').each(function() {
+            var thisBoard = $(this);
+            $(this).off('click');
+            $(this).click(function() {
+                $(this).off('click');
+                boardForm($(this).data('id'));
+            });
+        });
+
         // Delete pin if trash icon clicked
         $('.glyphicon-trash').each(function() {
             var thisPin = $(this);
@@ -67,7 +78,7 @@ $(window).load(function() {
                 var promise = deletePinData($(this).data('id'));
                 promise.success(function() {
                     thisPin.closest('.pin').remove();
-                    tileLayout();
+                    tileLayout('pins', 'pin');
                 });
                 promise.error(function() {
                     message('Problem deleting image.', 'alert alert-error');
@@ -75,8 +86,25 @@ $(window).load(function() {
             });
         });
 
+        // Delete board if trash icon clicked
+        $('.glyphicon-remove').each(function() {
+            var thisBoard = $(this);
+            $(this).off('click');
+            $(this).click(function() {
+                $(this).off('click');
+                var promise = deleteBoardData($(this).data('id'));
+                promise.success(function() {
+                    thisPin.closest('.board').remove();
+                    tileLayout('boards', 'board');
+                });
+                promise.error(function() {
+                    message('Problem deleting board.', 'alert alert-error');
+                });
+            });
+        });
+
         // Show edit-buttons only on mouse over
-        $('.pin').each(function(){
+        $('.' + blockClass).each(function(){
             var thisPin = $(this);
             thisPin.find('.editable').hide();
             thisPin.off('hover');
@@ -128,7 +156,7 @@ $(window).load(function() {
             $('#pins').append(html);
 
             // We need to then wait for images to load in and then tile
-            tileLayout();
+            tileLayout('pins', 'pin');
             lightbox();
             $('#pins').ajaxStop(function() {
                 $('img').load(function() {
@@ -154,14 +182,74 @@ $(window).load(function() {
         offset += apiLimitPerPage;
     }
 
+    function loadBoards() {
+        // Disable scroll
+        $(window).off('scroll');
+
+        // Show our loading symbol
+        $('.spinner').css('display', 'block');
+
+        // Fetch our pins from the api using our current offset
+        var apiUrl = '/api/v1/board/?format=json&order_by=-id&offset='+String(offset);
+        if (userFilter) apiUrl = apiUrl + '&owner__username=' + userFilter;
+        $.get(apiUrl, function(boards) {
+            var showBoards = [];
+            // Set which items are editable by the current user
+            for (var i=0; i < boards.objects.length; i++)
+            {
+                if (boards.objects[i].owner.username == currentUser.username)
+                {
+                    boards.objects[i].editable = true;
+                    showBoards.push(boards.objects[i]);
+                }
+            }
+            // Use the fetched pins as our context for our pins template
+            var template = Handlebars.compile($('#boards-template').html());
+            var html = template({boards: showBoards});
+
+            // Append the newly compiled data to our container
+            $('#boards').append(html);
+
+            // We need to then wait for images to load in and then tile
+            tileLayout('boards', 'board');
+            lightbox();
+            $('#boards').ajaxStop(function() {
+                $('img').load(function() {
+                    $(this).fadeIn(300);
+                });
+            });
+
+            if (boards.objects.length < apiLimitPerPage) {
+                $('.spinner').css('display', 'none');
+                if ($('#boards').length != 0) {
+                    var theEnd = document.createElement('div');
+                    theEnd.id = 'the-end';
+                    $(theEnd).html('&mdash; End &mdash;');
+                    $(theEnd).css('padding', 50);
+                    $('body').append(theEnd);
+                }
+            } else {
+                $(window).scroll(scrollHandler);
+            }
+        });
+
+        // Up our offset, it's currently defined as 50 in our settings
+        offset += apiLimitPerPage;
+    }
 
     // Set offset for loadPins and do our initial load
     var offset = 0;
-    loadPins();
+    if(urlName == 'recent-pins')
+        loadPins();
+    else if (urlName == 'board')
+        loadBoards();
 
     // If our window gets resized keep the tiles looking clean and in our window
     $(window).resize(function() {
-        tileLayout();
+        if(urlName == 'recent-pins')
+            tileLayout('pins', 'pin');
+        else if (urlName == 'board')
+            tileLayout('boards', 'board');
         lightbox();
     })
 });

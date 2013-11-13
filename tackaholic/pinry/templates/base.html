@@ -60,6 +60,8 @@
             boardFilter = "{{ request.resolver_match.kwargs.board }}",
             tagFilter = "{{ request.resolver_match.kwargs.tag }}",
             userFilter = "{{ request.resolver_match.kwargs.user }}";
+            urlName = "{{ request.resolver_match.url_name }}";
+
         </script>
         <!-- End JavaScript Variables -->
     </head>
@@ -120,6 +122,7 @@
         {% include "includes/lightbox.html" %}
         {% include "includes/pins.html" %}
         {% include "includes/pin_form.html" %}
+        {% include "includes/boards.html" %}
         {% include "includes/board_form.html" %}
         {% block extra_templates %}{% endblock %}
         <!-- End Templates -->

@@ -171,6 +171,117 @@ textarea {
 }
 /* End Forms */
 
+/* Start Boards */
+#boards {
+    top: 80px;
+}
+
+.board {
+    background: #fff;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 #bbb;
+       -moz-box-shadow: 0 1px 0 #bbb;
+            box-shadow: 0 1px 0 #bbb;
+    display: none;
+    position: absolute;
+    width: 240px;
+}
+
+.board .editable {
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    color: white;
+}
+
+.board:hover .editable {
+    display: block;
+}
+
+.board .editable .borderable {
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 8px;
+    display: inline-block;
+}
+
+.board .image-wrapper {
+    background-image: url("../img/loader.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.board img {
+    -webkit-border-top-left-radius: 3px;
+        -moz-border-radius-topleft: 3px;
+            border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+        -moz-border-radius-topright: 3px;
+            border-top-right-radius: 3px;
+    cursor: -webkit-zoom-in;
+    cursor:    -moz-zoom-in;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 240px;
+}
+
+.board p {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Georgia', 'Times', 'Times New Roman', serif;
+    font-size: 12px;
+    margin-bottom: 0;
+    padding: 8px;
+}
+
+.board strong {
+    color: #777;
+    font-weight: normal;
+}
+
+.board-footer {
+    color: #777;
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.board-footer .dim {
+    color: #999;
+    font-weight: normal;
+}
+
+.board-footer .avatar {
+    background: white;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+
+.board-footer .avatar img {
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    height: 30px;
+    width: 30px;
+}
+
+.board-footer .text {
+    line-height: 16px;
+    margin-top: -1px;
+    width: 180px;
+}
 
 /* Start Pins */
 #pins {

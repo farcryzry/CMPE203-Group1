@@ -1,0 +1,30 @@
+{% verbatim %}
+    <script id="boards-template" type="text/x-handlebars-template">
+        {{#each boards}}
+        <div class="board" data-id="{{id}}">
+            {{#if editable}}
+                <div class="editable">
+                    <div class="borderable">
+                        <span class="glyphicon glyphicon-remove" data-id="{{id}}"></span>
+                    </div>
+                    <div class="borderable">
+                        <span class="glyphicon glyphicon-edit" data-id="{{id}}"></span>
+                    </div>
+                </div>
+            {{/if}}
+            <p>{{name}}</p>
+            <a href="{{image.standard.image}}" class="lightbox" data-id="{{id}}">
+                <div class="image-wrapper" style="width: {{image.thumbnail.width}}px; height: {{image.thumbnail.height}}px;">
+                    <img src="{{image.thumbnail.image}}" width="{{image.thumbnail.width}}" height="{{image.thumbnail.height}}"/>
+                </div>
+            </a>
+
+
+                <p>{{description}}</p>
+            <div class="board-footer clearfix">
+        
+            </div>
+        </div>
+        {{/each}}
+    </script>
+{% endverbatim %}
