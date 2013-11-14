@@ -26,8 +26,11 @@ $(window).load(function() {
 
     function dismissModal(modal) {
         modal.modal('hide');
+
         setTimeout(function() {
             modal.remove();
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
         }, 200);
     }
     // End Helper Functions

@@ -153,6 +153,15 @@ $(window).load(function() {
             var html = template({tacks: tacks.objects});
 
             // Append the newly compiled data to our container
+
+            if(userFilter) {
+                $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>" + currentUser.username + "'s Page</h1>");
+            }
+
+            if(tagFilter) {
+                $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>Tacks Under Tag " + tagFilter + "</h1>");
+            }
+
             $('#tacks').append(html);
 
             // We need to then wait for images to load in and then tile
