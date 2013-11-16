@@ -63,4 +63,8 @@ class Tack(models.Model):
     def __unicode__(self):
         return self.url
 
+class Following(models.Model):
+    user = models.ForeignKey(User)
+    board = models.ForeignKey(Board)
+
 
