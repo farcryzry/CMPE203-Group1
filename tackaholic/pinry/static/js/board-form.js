@@ -43,7 +43,11 @@ $(window).load(function() {
             formFields = [$('#board-form-name'), $('#board-form-description'),
             $('#board-form-category')];
         // If editable grab existing data
+        $('#board-form h3.modal-title').text('New Board')
+        $('#board-form button.btn-primary').text('Add Board')
         if (editBoardId) {
+            $('#board-form h3.modal-title').text('Edit Board')
+            $('#board-form button.btn-primary').text('Save Board')
             var promise = getBoardData(editBoardId);
             promise.success(function(data) {
                 editedBoard = data;

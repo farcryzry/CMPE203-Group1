@@ -12,13 +12,11 @@
                     </div>
                 </div>
             {{/if}}
-            <p>{{name}}</p>
-            <a href="{{image.standard.image}}" class="lightbox" data-id="{{id}}">
+            <a href="/tacks/board/{{id}}/"><h4><b>{{name}}</b></h4></a>
+
                 <div class="image-wrapper" style="width: {{image.thumbnail.width}}px; height: {{image.thumbnail.height}}px;">
                     <img src="{{image.thumbnail.image}}" width="{{image.thumbnail.width}}" height="{{image.thumbnail.height}}"/>
                 </div>
-            </a>
-
 
                 <p>{{description}}</p>
             <div class="board-footer clearfix">
