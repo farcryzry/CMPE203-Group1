@@ -80,7 +80,7 @@ $(window).load(function() {
                     editedBoard = null;
                 });
                 promise.error(function() {
-                    message('Problem creating new board.', 'alert alert-error');
+                    message('Problem creating new board.', 'alert alert-warning');
                 });
             } else {
                 var data = {
@@ -95,7 +95,7 @@ $(window).load(function() {
                     dismissModal(modal);
                 });
                 promise.error(function() {
-                    message('Problem creating new board.', 'alert alert-error');
+                    message('Problem creating new board.', 'alert alert-warning');
                 });
             }
         });

@@ -81,7 +81,7 @@ $(window).load(function() {
                     tileLayout('tacks', 'tack');
                 });
                 promise.error(function() {
-                    message('Problem deleting image.', 'alert alert-error');
+                    message('Problem deleting image.', 'alert alert-warning');
                 });
             });
         });
@@ -98,7 +98,7 @@ $(window).load(function() {
                     tileLayout('boards', 'board');
                 });
                 promise.error(function() {
-                    message('Problem deleting board.', 'alert alert-error');
+                    message('Problem deleting board.', 'alert alert-warning');
                 });
             });
         });

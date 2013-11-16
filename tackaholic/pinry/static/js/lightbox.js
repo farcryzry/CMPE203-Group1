@@ -83,7 +83,7 @@ $(window).load(function() {
                 createBox(tack);
             });
             promise.error(function() {
-                message('Problem problem fetching tack data.', 'alert alert-error');
+                message('Problem problem fetching tack data.', 'alert alert-warning');
             });
         }
         return links.each(function() {
@@ -95,7 +95,7 @@ $(window).load(function() {
                     createBox(tack);
                 });
                 promise.error(function() {
-                    message('Problem problem fetching tack data.', 'alert alert-error');
+                    message('Problem problem fetching tack data.', 'alert alert-warning');
                 });
             });
         });

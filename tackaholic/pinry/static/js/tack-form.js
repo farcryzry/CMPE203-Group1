@@ -124,7 +124,7 @@ $(window).load(function() {
                 createTackPreviewFromForm();
             });
             promise.error(function() {
-                message('Problem uploading image.', 'alert alert-error');
+                message('Problem uploading image.', 'alert alert-warning');
             });
         });
         // If bookmarklet submit
@@ -167,9 +167,10 @@ $(window).load(function() {
                     lightbox();
                     dismissModal(modal);
                     editedTack = null;
+                    message('New tack added, please refresh to see it.', 'alert alert-sucess');
                 });
                 promise.error(function() {
-                    message('Problem updating image.', 'alert alert-error');
+                    message('Problem updating image.', 'alert alert-warning');
                 });
             } else {
                 var data = {
@@ -192,7 +193,7 @@ $(window).load(function() {
                     uploadedImage = false;
                 });
                 promise.error(function() {
-                    message('Problem saving image.', 'alert alert-error');
+                    message('Problem saving image.', 'alert alert-warning');
                 });
             }
         });
