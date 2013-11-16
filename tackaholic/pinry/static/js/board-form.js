@@ -20,7 +20,8 @@ $(window).load(function() {
             submitter: currentUser,
             name: $('#board-form-name').val(),
             description: $('#board-form-description').val(),
-            category: $('#board-form-category').val()
+            category: $('#board-form-category').val(),
+            cover: '/api/v1/tack/9/'  //default cover when create a new board
         }
     }
 
@@ -80,15 +81,14 @@ $(window).load(function() {
                     editedBoard = null;
                 });
                 promise.error(function() {
-                    message('Problem creating new board.', 'alert alert-error');
+                    message('Problem creating new board.', 'alert alert-warning');
                 });
             } else {
                 var data = {
                     owner: '/api/v1/user/'+currentUser.id+'/',
                     name: $('#board-form-name').val(),
                     description: $('#board-form-description').val(),
-                    category: $('#board-form-category').val(),
-                    cover: '/api/v1/tack/9/'  //default cover when create a new board
+                    category: $('#board-form-category').val()
                 };
                 var promise = postBoardData(data);
                 promise.success(function(board) {
@@ -96,7 +96,7 @@ $(window).load(function() {
                     dismissModal(modal);
                 });
                 promise.error(function() {
-                    message('Problem creating new board.', 'alert alert-error');
+                    message('Problem creating new board.', 'alert alert-warning');
                 });
             }
         });

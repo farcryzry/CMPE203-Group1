@@ -51,11 +51,11 @@ $(window).load(function() {
 
         // Edit tack if pencil icon clicked
         $('.glyphicon-pencil').each(function() {
-            var thisPin = $(this);
+            var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
-                pinForm($(this).data('id'));
+                tackForm($(this).data('id'));
             });
         });
 
@@ -71,17 +71,17 @@ $(window).load(function() {
 
         // Delete tack if trash icon clicked
         $('.glyphicon-trash').each(function() {
-            var thisPin = $(this);
+            var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
-                var promise = deletePinData($(this).data('id'));
+                var promise = deleteTackData($(this).data('id'));
                 promise.success(function() {
-                    thisPin.closest('.tack').remove();
+                    thisTack.closest('.tack').remove();
                     tileLayout('tacks', 'tack');
                 });
                 promise.error(function() {
-                    message('Problem deleting image.', 'alert alert-error');
+                    message('Problem deleting image.', 'alert alert-warning');
                 });
             });
         });
@@ -94,24 +94,24 @@ $(window).load(function() {
                 $(this).off('click');
                 var promise = deleteBoardData($(this).data('id'));
                 promise.success(function() {
-                    thisPin.closest('.board').remove();
+                    thisTack.closest('.board').remove();
                     tileLayout('boards', 'board');
                 });
                 promise.error(function() {
-                    message('Problem deleting board.', 'alert alert-error');
+                    message('Problem deleting board.', 'alert alert-warning');
                 });
             });
         });
 
         // Show edit-buttons only on mouse over
         $('.' + blockClass).each(function(){
-            var thisPin = $(this);
-            thisPin.find('.editable').hide();
-            thisPin.off('hover');
-            thisPin.hover(function() {
-                thisPin.find('.editable').stop(true, true).fadeIn(300);
+            var thisTack = $(this);
+            thisTack.find('.editable').hide();
+            thisTack.off('hover');
+            thisTack.hover(function() {
+                thisTack.find('.editable').stop(true, true).fadeIn(300);
             }, function() {
-                thisPin.find('.editable').stop(true, false).fadeOut(300);
+                thisTack.find('.editable').stop(true, false).fadeOut(300);
             });
         });
 
@@ -125,14 +125,14 @@ $(window).load(function() {
     window.scrollHandler = function() {
         var windowPosition = $(window).scrollTop() + $(window).height();
         var bottom = $(document).height() - 100;
-        if(windowPosition > bottom) loadPins();
+        if(windowPosition > bottom) loadTacks();
     }
 
     /**
      * Load our tacks using the tacks template into our UI, be sure to define a
      * offset outside the function to keep a running tally of your location.
      */
-    function loadPins() {
+    function loadTacks() {
         // Disable scroll
         $(window).off('scroll');
 
@@ -253,10 +253,10 @@ $(window).load(function() {
         offset += apiLimitPerPage;
     }
 
-    // Set offset for loadPins and do our initial load
+    // Set offset for loadTacks and do our initial load
     var offset = 0;
     if(urlName.indexOf('tacks') >= 0)
-        loadPins();
+        loadTacks();
     else if (urlName == 'board')
         loadBoards();
 

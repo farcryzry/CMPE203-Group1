@@ -32,8 +32,8 @@ function getImageData(imageId) {
 }
 
 
-function getPinData(pinId) {
-    var apiUrl = '/api/v1/tack/'+pinId+'/?format=json';
+function getTackData(tackId) {
+    var apiUrl = '/api/v1/tack/'+tackId+'/?format=json';
     return $.get(apiUrl);
 }
 
@@ -42,8 +42,13 @@ function getBoardData(boardId) {
     return $.get(apiUrl);
 }
 
-function deletePinData(pinId) {
-    var apiUrl = '/api/v1/tack/'+pinId+'/?format=json';
+function getBoardListData(userId) {
+    var apiUrl = '/api/v1/board/?format=json&owner__id='+ userId +'&order_by=name';
+    return $.get(apiUrl);
+}
+
+function deleteTackData(tackId) {
+    var apiUrl = '/api/v1/tack/'+tackId+'/?format=json';
     return $.ajax(apiUrl, {
         type: 'DELETE'
     });
@@ -56,7 +61,7 @@ function deleteBoardData(boardId) {
     });
 }
 
-function postPinData(data) {
+function postTackData(data) {
     return $.ajax({
         type: "post",
         url: "/api/v1/tack/",

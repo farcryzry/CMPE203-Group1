@@ -43,10 +43,9 @@ class Board(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    #category = models.ForeignKey(Category)
     category = models.CharField(max_length=100)
     cover = models.ForeignKey('Tack', blank=True, null=True, related_name='cover')
-    #is_public = models.BooleanField(default=True)
+    is_public = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
@@ -63,5 +62,9 @@ class Tack(models.Model):
 
     def __unicode__(self):
         return self.url
+
+class Following(models.Model):
+    user = models.ForeignKey(User)
+    board = models.ForeignKey(Board)
 
 

@@ -5,12 +5,12 @@ from taggit.models import Tag
 from tastypie.exceptions import Unauthorized
 from tastypie.test import ResourceTestCase
 
-from .helpers import ImageFactory, PinFactory, UserFactory
+from .helpers import ImageFactory, TackFactory, UserFactory
 from ..models import Tack, Image
 from ...users.models import User
 
 
-__all__ = ['ImageResourceTest', 'PinResourceTest']
+__all__ = ['ImageResourceTest', 'TackResourceTest']
 
 
 def filter_generator_for(size):
@@ -58,9 +58,9 @@ class ImageResourceTest(ResourceTestCase):
         })
 
 
-class PinResourceTest(ResourceTestCase):
+class TackResourceTest(ResourceTestCase):
     def setUp(self):
-        super(PinResourceTest, self).setUp()
+        super(TackResourceTest, self).setUp()
         self.user = UserFactory(password='password')
         self.api_client.client.login(username=self.user.username, password='password')
 
@@ -165,19 +165,19 @@ class PinResourceTest(ResourceTestCase):
 
     def test_put_detail_unauthenticated(self):
         self.api_client.client.logout()
-        uri = '/api/v1/tack/{}/'.format(PinFactory().pk)
+        uri = '/api/v1/tack/{}/'.format(TackFactory().pk)
         response = self.api_client.put(uri, format='json', data={})
         self.assertHttpUnauthorized(response)
 
     def test_put_detail_unauthorized(self):
-        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(TackFactory(submitter=self.user).pk)
         user = UserFactory(password='password')
         self.api_client.client.login(username=user.username, password='password')
         response = self.api_client.put(uri, format='json', data={})
         self.assertHttpUnauthorized(response)
 
     def test_put_detail(self):
-        tack = PinFactory(submitter=self.user)
+        tack = TackFactory(submitter=self.user)
         uri = '/api/v1/tack/{}/'.format(tack.pk)
         new = {'description': 'Updated description'}
 
@@ -187,42 +187,42 @@ class PinResourceTest(ResourceTestCase):
         self.assertEqual(Tack.objects.get(pk=tack.pk).description, new['description'])
 
     def test_delete_detail_unauthenticated(self):
-        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(TackFactory(submitter=self.user).pk)
         self.api_client.client.logout()
         self.assertHttpUnauthorized(self.api_client.delete(uri))
 
     def test_delete_detail_unauthorized(self):
-        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(TackFactory(submitter=self.user).pk)
         User.objects.create_user('test', 'test@example.com', 'test')
         self.api_client.client.login(username='test', password='test')
         self.assertHttpUnauthorized(self.api_client.delete(uri))
 
     def test_delete_detail(self):
-        uri = '/api/v1/tack/{}/'.format(PinFactory(submitter=self.user).pk)
+        uri = '/api/v1/tack/{}/'.format(TackFactory(submitter=self.user).pk)
         self.assertHttpAccepted(self.api_client.delete(uri))
         self.assertEqual(Tack.objects.count(), 0)
 
     def test_get_list_json_ordered(self):
-        _, tack = PinFactory(), PinFactory()
+        _, tack = TackFactory(), TackFactory()
         response = self.api_client.get('/api/v1/tack/', format='json', data={'order_by': '-id'})
         self.assertValidJSONResponse(response)
         self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.id)
 
     def test_get_list_json_filtered_by_tags(self):
-        tack = PinFactory()
+        tack = TackFactory()
         response = self.api_client.get('/api/v1/tack/', format='json', data={'tag': tack.tags.get(pk=1)})
         self.assertValidJSONResponse(response)
         self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.pk)
 
     def test_get_list_json_filtered_by_submitter(self):
-        tack = PinFactory(submitter=self.user)
+        tack = TackFactory(submitter=self.user)
         response = self.api_client.get('/api/v1/tack/', format='json', data={'submitter__username': self.user.username})
         self.assertValidJSONResponse(response)
         self.assertEqual(self.deserialize(response)['objects'][0]['id'], tack.pk)
 
     def test_get_list_json(self):
         image = ImageFactory()
-        tack = PinFactory(**{
+        tack = TackFactory(**{
             'submitter': self.user,
             'image': image,
             'url': 'http://testserver/mocked/logo.png',

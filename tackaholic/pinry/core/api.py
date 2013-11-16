@@ -49,11 +49,12 @@ class UserResource(ModelResource):
     class Meta:
         list_allowed_methods = ['get']
         filtering = {
-            'username': ALL
+            'username': ALL,
+            'id': ALL_WITH_RELATIONS,
         }
         queryset = User.objects.all()
         resource_name = 'user'
-        fields = ['username']
+        fields = ['username', 'id']
         include_resource_uri = False
 
 
@@ -89,25 +90,42 @@ class ImageResource(ModelResource):
 
 class BoardResource(ModelResource):
     owner = fields.ToOneField(UserResource, 'owner', full=True)
-    cover = fields.ToOneField('pinry.core.api.PinResource', 'cover', null=True, blank=True, full=True)
+    cover = fields.ToOneField('pinry.core.api.TackResource', 'cover', null=True, blank=True, full=False)
     #name = fields.CharField()
     #description = fields.CharField()
     #category = fields.CharField()
 
+    #def hydrate(self, bundle):
+    #    """Run some early/generic processing
+    #
+    #    Make sure that user is authorized to create Pins first, before
+    #    we hydrate the Image resource, creating the Image object in process
+    #    """
+    #    owner = bundle.data.get('owner', None)
+    #    if not owner:
+    #        bundle.data['owner'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
+    #    else:
+    #        if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == owner:
+    #            raise Unauthorized("You are not authorized to create Board for other users")
+    #    return bundle
+
     class Meta:
-        ordering = ['id']
+        #fields = ['id', 'name','description', 'category']
+        ordering = ['id', 'name']
         filtering = {
+            'owner': ALL_WITH_RELATIONS,
             'id': ALL_WITH_RELATIONS,
         }
         queryset = Board.objects.all()
         resource_name = 'board'
+        #fields = ['id']
         include_resource_uri = False
         always_return_data = True
         authorization = DjangoAuthorization()
 
-class PinResource(ModelResource):
+class TackResource(ModelResource):
     submitter = fields.ToOneField(UserResource, 'submitter', full=True)
-    board = fields.ToOneField(BoardResource, 'board', full=False)
+    board = fields.ToOneField(BoardResource, 'board', full=True)
     image = fields.ToOneField(ImageResource, 'image', full=True)
     tags = fields.ListField()
 
@@ -129,14 +147,14 @@ class PinResource(ModelResource):
             bundle.data['submitter'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
         else:
             if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == submitter:
-                raise Unauthorized("You are not authorized to create Pins for other users")
+                raise Unauthorized("You are not authorized to create Tacks for other users")
         return bundle
 
     def dehydrate_tags(self, bundle):
         return map(str, bundle.obj.tags.all())
 
     def build_filters(self, filters=None):
-        orm_filters = super(PinResource, self).build_filters(filters)
+        orm_filters = super(TackResource, self).build_filters(filters)
         if filters and 'tag' in filters:
             orm_filters['tags__name__in'] = filters['tag'].split(',')
         return orm_filters
@@ -145,7 +163,7 @@ class PinResource(ModelResource):
         tags = bundle.data.get('tags', None)
         if tags:
             bundle.obj.tags.set(*tags)
-        return super(PinResource, self).save_m2m(bundle)
+        return super(TackResource, self).save_m2m(bundle)
 
     class Meta:
         fields = ['id', 'url', 'origin', 'description']

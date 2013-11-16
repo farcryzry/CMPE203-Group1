@@ -7,7 +7,7 @@
         <div class="row">
             <div id="form" class="col-sm-4 col-sm-offset-4">
                 <h1>Join Us</h1>
-                <h3>And start pinning what your interests are.</h3>
+                <h3>And start tacking what your interests are.</h3>
                 <form action="{% url "users:register" %}" method="post" class="form-horizontal">
                     {% csrf_token %}
                     {% for field in form %}

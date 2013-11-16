@@ -33,7 +33,7 @@ class CreateUser(CreateView):
 
     def form_valid(self, form):
         redirect = super(CreateUser, self).form_valid(form)
-        permissions = Permission.objects.filter(codename__in=['add_pin', 'add_image'])
+        permissions = Permission.objects.filter(codename__in=['add_tack', 'add_image'])
         user = authenticate(username=form.cleaned_data['username'],
                             password=form.cleaned_data['password'])
         user.user_permissions = permissions
