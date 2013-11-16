@@ -55,7 +55,7 @@ $(window).load(function() {
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
-                pinForm($(this).data('id'));
+                tackForm($(this).data('id'));
             });
         });
 
@@ -75,7 +75,7 @@ $(window).load(function() {
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
-                var promise = deletePinData($(this).data('id'));
+                var promise = deleteTackData($(this).data('id'));
                 promise.success(function() {
                     thisPin.closest('.tack').remove();
                     tileLayout('tacks', 'tack');
@@ -125,14 +125,14 @@ $(window).load(function() {
     window.scrollHandler = function() {
         var windowPosition = $(window).scrollTop() + $(window).height();
         var bottom = $(document).height() - 100;
-        if(windowPosition > bottom) loadPins();
+        if(windowPosition > bottom) loadTacks();
     }
 
     /**
      * Load our tacks using the tacks template into our UI, be sure to define a
      * offset outside the function to keep a running tally of your location.
      */
-    function loadPins() {
+    function loadTacks() {
         // Disable scroll
         $(window).off('scroll');
 
@@ -251,10 +251,10 @@ $(window).load(function() {
         offset += apiLimitPerPage;
     }
 
-    // Set offset for loadPins and do our initial load
+    // Set offset for loadTacks and do our initial load
     var offset = 0;
     if(urlName.indexOf('tacks') >= 0)
-        loadPins();
+        loadTacks();
     else if (urlName == 'board')
         loadBoards();
 

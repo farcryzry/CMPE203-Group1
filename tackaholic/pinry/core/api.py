@@ -49,11 +49,12 @@ class UserResource(ModelResource):
     class Meta:
         list_allowed_methods = ['get']
         filtering = {
-            'username': ALL
+            'username': ALL,
+            'id': ALL_WITH_RELATIONS,
         }
         queryset = User.objects.all()
         resource_name = 'user'
-        fields = ['username']
+        fields = ['username', 'id']
         include_resource_uri = False
 
 
@@ -109,9 +110,9 @@ class BoardResource(ModelResource):
 
     class Meta:
         #fields = ['id', 'name','description', 'category']
-        ordering = ['id']
+        ordering = ['id', 'name']
         filtering = {
-            #'owner': ALL_WITH_RELATIONS,
+            'owner': ALL_WITH_RELATIONS,
             'id': ALL_WITH_RELATIONS,
         }
         queryset = Board.objects.all()
@@ -121,7 +122,7 @@ class BoardResource(ModelResource):
         always_return_data = True
         authorization = DjangoAuthorization()
 
-class PinResource(ModelResource):
+class TackResource(ModelResource):
     submitter = fields.ToOneField(UserResource, 'submitter', full=True)
     board = fields.ToOneField(BoardResource, 'board', full=True)
     image = fields.ToOneField(ImageResource, 'image', full=True)
@@ -152,7 +153,7 @@ class PinResource(ModelResource):
         return map(str, bundle.obj.tags.all())
 
     def build_filters(self, filters=None):
-        orm_filters = super(PinResource, self).build_filters(filters)
+        orm_filters = super(TackResource, self).build_filters(filters)
         if filters and 'tag' in filters:
             orm_filters['tags__name__in'] = filters['tag'].split(',')
         return orm_filters
@@ -161,7 +162,7 @@ class PinResource(ModelResource):
         tags = bundle.data.get('tags', None)
         if tags:
             bundle.obj.tags.set(*tags)
-        return super(PinResource, self).save_m2m(bundle)
+        return super(TackResource, self).save_m2m(bundle)
 
     class Meta:
         fields = ['id', 'url', 'origin', 'description']

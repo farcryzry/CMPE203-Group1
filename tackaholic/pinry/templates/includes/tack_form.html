@@ -18,6 +18,15 @@
                                 <div id="tack-form-image-upload"></div>
                             </div>
                             <div class="form-group">
+                                <label for="tack-form-board">Board</label>
+                                <select id="tack-form-board" class="form-control">
+                                    <Option value='-1'>None</Option>
+                                    {{#each boards}}
+                                        <Option value='{{id}}'>{{name}}</Option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="tack-form-description">Description</label>
                                 <textarea name="tack-form-description" id="tack-form-description" class="form-control"></textarea>
                             </div>

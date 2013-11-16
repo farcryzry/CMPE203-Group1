@@ -10,7 +10,7 @@
 
 $(window).load(function() {
     var uploadedImage = false;
-    var editedPin = null;
+    var editedTack = null;
 
     // Start Helper Functions
     function getFormData() {
@@ -22,7 +22,7 @@ $(window).load(function() {
         }
     }
 
-    function createPinPreviewFromForm() {
+    function createTackPreviewFromForm() {
         var context = {tacks: [{
                 submitter: currentUser,
                 image: {thumbnail: {image: $('#tack-form-image-url').val()}},
@@ -59,28 +59,33 @@ $(window).load(function() {
 
 
     // Start View Functions
-    function createPinForm(editPinId) {
-        $('body').append(renderTemplate('#tack-form-template', ''));
+    function createTackForm(editTackId) {
+        var promise = getBoardListData(currentUser.id);
+        promise.success(function(data) {
+            $('body').append(renderTemplate('#tack-form-template', {boards: data.objects}));
+        });
+
         var modal = $('#tack-form'),
             formFields = [$('#tack-form-image-url'), $('#tack-form-description'),
             $('#tack-form-tags')],
-            pinFromUrl = getUrlParameter('tack-image-url');
+            tackFromUrl = getUrlParameter('tack-image-url');
         // If editable grab existing data
 
-        $('#tack-form h3.modal-title').text('New Tack')
+        $('#tack-form h3.modal-title').text('New Tack');
 
-        if (editPinId) {
-            $('#tack-form h3.modal-title').text('Edit Tack')
+        if (editTackId) {
+            $('#tack-form h3.modal-title').text('Edit Tack');
 
-            var promise = getPinData(editPinId);
+            promise = getTackData(editTackId);
             promise.success(function(data) {
-                editedPin = data;
-                $('#tack-form-image-url').val(editedPin.image.thumbnail.image);
+                editedTack = data;
+                $('#tack-form-image-url').val(editedTack.image.thumbnail.image);
                 $('#tack-form-image-url').parent().hide();
                 $('#tack-form-image-upload').parent().hide();
-                $('#tack-form-description').val(editedPin.description);
-                $('#tack-form-tags').val(editedPin.tags);
-                createPinPreviewFromForm();
+                $('#tack-form-board').val(editedTack.board.id);
+                $('#tack-form-description').val(editedTack.description);
+                $('#tack-form-tags').val(editedTack.tags);
+                createTackPreviewFromForm();
             });
         }
         modal.modal('show');
@@ -90,7 +95,7 @@ $(window).load(function() {
             formFields[i].bind('propertychange keyup input paste', function() {
                 clearTimeout(timer);
                 timer = setTimeout(function() {
-                    createPinPreviewFromForm()
+                    createTackPreviewFromForm()
                 }, 700);
                 if (!uploadedImage)
                     $('#tack-form-image-upload').parent().fadeOut(300);
@@ -116,16 +121,16 @@ $(window).load(function() {
             uploadedImage = data.success.id;
             promise.success(function(image) {
                 $('#tack-form-image-url').val(image.thumbnail.image);
-                createPinPreviewFromForm();
+                createTackPreviewFromForm();
             });
             promise.error(function() {
                 message('Problem uploading image.', 'alert alert-error');
             });
         });
         // If bookmarklet submit
-        if (pinFromUrl) {
+        if (tackFromUrl) {
             $('#tack-form-image-upload').parent().css('display', 'none');
-            $('#tack-form-image-url').val(pinFromUrl);
+            $('#tack-form-image-url').val(tackFromUrl);
             $('.navbar').css('display', 'none');
             modal.css({
                 'margin-top': -35,
@@ -137,12 +142,13 @@ $(window).load(function() {
             e.preventDefault();
             $(this).off('click');
             $(this).addClass('disabled');
-            if (editedPin) {
-                var apiUrl = '/api/v1/tack/'+editedPin.id+'/?format=json';
+            if (editedTack) {
+                var apiUrl = '/api/v1/tack/'+editedTack.id+'/?format=json';
                 var data = {
+                    board: '/api/v1/user/'+$('#tack-form-board').val()+'/',
                     description: $('#tack-form-description').val(),
                     tags: cleanTags($('#tack-form-tags').val())
-                }
+                };
                 var promise = $.ajax({
                     type: "put",
                     url: apiUrl,
@@ -151,16 +157,16 @@ $(window).load(function() {
                 });
                 promise.success(function(tack) {
                     tack.editable = true;
-                    var renderedPin = renderTemplate('#tacks-template', {
+                    var renderedTack = renderTemplate('#tacks-template', {
                         tacks: [
                             tack
                         ]
                     });
-                    $('#tacks').find('.tack[data-id="'+tack.id+'"]').replaceWith(renderedPin);
+                    $('#tacks').find('.tack[data-id="'+tack.id+'"]').replaceWith(renderedTack);
                     tileLayout();
                     lightbox();
                     dismissModal(modal);
-                    editedPin = null;
+                    editedTack = null;
                 });
                 promise.error(function() {
                     message('Problem updating image.', 'alert alert-error');
@@ -169,13 +175,14 @@ $(window).load(function() {
                 var data = {
                     submitter: '/api/v1/user/'+currentUser.id+'/',
                     description: $('#tack-form-description').val(),
+                    board: '/api/v1/user/'+$('#tack-form-board').val()+'/',
                     tags: cleanTags($('#tack-form-tags').val())
                 };
                 if (uploadedImage) data.image = '/api/v1/image/'+uploadedImage+'/';
                 else data.url = $('#tack-form-image-url').val();
-                var promise = postPinData(data);
+                var promise = postTackData(data);
                 promise.success(function(tack) {
-                    if (pinFromUrl) return window.close();
+                    if (tackFromUrl) return window.close();
                     tack.editable = true;
                     tack = renderTemplate('#tacks-template', {tacks: [tack]});
                     $('#tacks').prepend(tack);
@@ -190,22 +197,22 @@ $(window).load(function() {
             }
         });
         $('#tack-form-close').click(function() {
-            if (pinFromUrl) return window.close();
+            if (tackFromUrl) return window.close();
             dismissModal(modal);
         });
-        createPinPreviewFromForm();
+        createTackPreviewFromForm();
     }
     // End View Functions
 
 
     // Start Init
-    window.pinForm = function(editPinId) {
-        editPinId = typeof editPinId !== 'undefined' ? editPinId : null;
-        createPinForm(editPinId);
+    window.tackForm = function(editTackId) {
+        editTackId = typeof editTackId !== 'undefined' ? editTackId : null;
+        createTackForm(editTackId);
     }
 
     if (getUrlParameter('tack-image-url')) {
-        createPinForm();
+        createTackForm();
     }
     // End Init
 });

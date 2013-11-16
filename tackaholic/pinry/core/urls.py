@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 
 from tastypie.api import Api
 
-from .api import ImageResource, ThumbnailResource, PinResource, UserResource, BoardResource
+from .api import ImageResource, ThumbnailResource, TackResource, UserResource, BoardResource
 from .feeds import LatestPins, LatestUserPins, LatestTagPins
 from .views import CreateImage, CreateBoard
 
@@ -11,7 +11,7 @@ from .views import CreateImage, CreateBoard
 v1_api = Api(api_name='v1')
 v1_api.register(ImageResource())
 v1_api.register(ThumbnailResource())
-v1_api.register(PinResource())
+v1_api.register(TackResource())
 v1_api.register(UserResource())
 v1_api.register(BoardResource())
 

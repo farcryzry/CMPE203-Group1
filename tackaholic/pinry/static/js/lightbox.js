@@ -78,7 +78,7 @@ $(window).load(function() {
     window.lightbox = function() {
         var links = $('body').find('.lightbox');
         if (pinFilter) {
-            var promise = getPinData(pinFilter);
+            var promise = getTackData(pinFilter);
             promise.success(function(tack) {
                 createBox(tack);
             });
@@ -90,7 +90,7 @@ $(window).load(function() {
             $(this).off('click');
             $(this).click(function(e) {
                 e.preventDefault();
-                var promise = getPinData($(this).data('id'));
+                var promise = getTackData($(this).data('id'));
                 promise.success(function(tack) {
                     createBox(tack);
                 });
