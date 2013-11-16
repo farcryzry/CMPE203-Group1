@@ -45,6 +45,7 @@ class Board(models.Model):
     description = models.TextField(blank=True, null=True)
     #category = models.ForeignKey(Category)
     category = models.CharField(max_length=100)
+    cover = models.ForeignKey('Tack', blank=True, null=True, related_name='cover')
     #is_public = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -58,7 +59,7 @@ class Tack(models.Model):
     image = models.ForeignKey(Image, related_name='tack')
     published = models.DateTimeField(auto_now_add=True)
     tags = TaggableManager()
-    board = models.ForeignKey(Board, blank=True, null=True)
+    board = models.ForeignKey(Board)
 
     def __unicode__(self):
         return self.url

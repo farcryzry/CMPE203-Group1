@@ -12,15 +12,15 @@
                     </div>
                 </div>
             {{/if}}
-            <a href="/tacks/board/{{id}}/"><h4><b>{{name}}</b></h4></a>
+            <a href="/tacks/board/{{id}}/"><h3><b>{{name}}</b></h3></a>
 
-                <div class="image-wrapper" style="width: {{image.thumbnail.width}}px; height: {{image.thumbnail.height}}px;">
-                    <img src="{{image.thumbnail.image}}" width="{{image.thumbnail.width}}" height="{{image.thumbnail.height}}"/>
+                <div class="image-wrapper" style="width: 100px; height: 150px;">
+                    {{#if cover}}
+                        <img src="{{cover.image.thumbnail.image}}" width="100" height="150"/>
+                    {{/if}}
                 </div>
-
-                <p>{{description}}</p>
             <div class="board-footer clearfix">
-        
+                {{description}}
             </div>
         </div>
         {{/each}}

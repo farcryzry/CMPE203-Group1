@@ -164,7 +164,9 @@ $(window).load(function() {
             }
 
             if(boardFilter) {
-                $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>Tacks Under Board " + boardFilter + "</h1>");
+                var promise = getBoardData(boardFilter);
+                promise.success(function(board){
+                    $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>" + board.name + "</h1>");});
             }
 
             $('#tacks').append(html);
