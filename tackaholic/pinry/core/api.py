@@ -146,7 +146,7 @@ class TackResource(ModelResource):
             bundle.data['submitter'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
         else:
             if not '/api/v1/user/{}/'.format(bundle.request.user.pk) == submitter:
-                raise Unauthorized("You are not authorized to create Pins for other users")
+                raise Unauthorized("You are not authorized to create Tacks for other users")
         return bundle
 
     def dehydrate_tags(self, bundle):

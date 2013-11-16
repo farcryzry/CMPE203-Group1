@@ -28,7 +28,7 @@ class UserFactory(factory.Factory):
 
     @factory.post_generation(extract_prefix='user_permissions')
     def set_user_permissions(self, create, extracted, **kwargs):
-        self.user_permissions = Permission.objects.filter(codename__in=['add_pin', 'add_image'])
+        self.user_permissions = Permission.objects.filter(codename__in=['add_tack', 'add_image'])
 
 
 class TagFactory(factory.Factory):
@@ -48,7 +48,7 @@ class ImageFactory(factory.Factory):
             Thumbnail.objects.get_or_create_at_size(self.pk, size)
 
 
-class PinFactory(factory.Factory):
+class TackFactory(factory.Factory):
     FACTORY_FOR = Tack
 
     submitter = factory.SubFactory(UserFactory)
@@ -66,25 +66,25 @@ class PinFactory(factory.Factory):
             self.tags.add(TagFactory())
 
 
-class PinFactoryTest(TestCase):
+class TackFactoryTest(TestCase):
     def test_default_tags(self):
-        self.assertTrue(PinFactory().tags.get(pk=1).name.startswith('tag_'))
+        self.assertTrue(TackFactory().tags.get(pk=1).name.startswith('tag_'))
 
     def test_custom_tag(self):
         custom = 'custom_tag'
-        self.assertEqual(PinFactory(tags=Tag.objects.create(name=custom)).tags.get(pk=1).name, custom)
+        self.assertEqual(TackFactory(tags=Tag.objects.create(name=custom)).tags.get(pk=1).name, custom)
 
     def test_custom_tags_list(self):
         tags = TagFactory.create_batch(2)
-        PinFactory(tags=tags)
+        TackFactory(tags=tags)
         self.assertEqual(Tag.objects.count(), 2)
 
     def test_custom_tags_queryset(self):
         TagFactory.create_batch(2)
         tags = Tag.objects.all()
-        PinFactory(tags=tags)
+        TackFactory(tags=tags)
         self.assertEqual(Tag.objects.count(), 2)
 
     def test_empty_tags(self):
-        PinFactory(tags=[])
+        TackFactory(tags=[])
         self.assertEqual(Tag.objects.count(), 0)

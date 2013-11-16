@@ -17,8 +17,8 @@ def filter_generator_for(size):
     return wrapped_func
 
 
-class LatestPins(Feed):
-    title = 'Latest Pins'
+class LatestTacks(Feed):
+    title = 'Latest Tacks'
     link = '/'
     description = 'The latest tacks from around the internet.'
 
@@ -64,7 +64,7 @@ class LatestPins(Feed):
         return filter_generator_for('standard')(item.image).image.size
 
 
-class LatestUserPins(Feed):
+class LatestUserTacks(Feed):
     description = 'The latest tacks from around the internet.'
 
     domain_name = None
@@ -83,7 +83,7 @@ class LatestUserPins(Feed):
         return get_object_or_404(User, username=user)
 
     def title(self, obj):
-        return 'Latest Pins from ' + obj.username
+        return 'Latest Tacks from ' + obj.username
 
     def link(self, obj):
         return '/tacks/user/' + obj.username + '/'
@@ -113,7 +113,7 @@ class LatestUserPins(Feed):
         return filter_generator_for('standard')(item.image).image.size
 
 
-class LatestTagPins(Feed):
+class LatestTagTacks(Feed):
     link = '/'
     description = 'The latest tacks from around the internet.'
 
@@ -133,7 +133,7 @@ class LatestTagPins(Feed):
         return get_object_or_404(Tag, name=tag)
 
     def title(self, obj):
-        return 'Latest Pins in ' + obj.name
+        return 'Latest Tacks in ' + obj.name
 
     def link(self, obj):
         return '/tacks/tag/' + obj.name + '/'

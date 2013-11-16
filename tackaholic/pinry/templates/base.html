@@ -56,7 +56,7 @@
                 username: "{{ user.username }}",
                 gravatar: "{{ user.gravatar }}"
             },
-            pinFilter = "{{ request.resolver_match.kwargs.tack }}",
+            tackFilter = "{{ request.resolver_match.kwargs.tack }}",
             boardFilter = "{{ request.resolver_match.kwargs.board }}",
             tagFilter = "{{ request.resolver_match.kwargs.tag }}",
             userFilter = "{{ request.resolver_match.kwargs.user }}";
@@ -88,7 +88,7 @@
                             <li><a href="{% url 'core:board' %}">Board</a></li>
                             <li><a href="{% url 'users:settings' %}">Settings</a></li>
                             <li><a href="{% url 'users:logout' %}">Logout</a></li>
-                            <li>{% include "includes/bookmarklet_link.html" %}</li>
+                            <!--<li>{% include "includes/bookmarklet_link.html" %}</li>-->
                         {% else %}
                             <li><a href="{% url 'users:login' %}">Login</a></li>
                             <li><a href="{% url 'users:register' %}">Register</a></li>

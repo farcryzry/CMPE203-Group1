@@ -77,8 +77,8 @@ $(window).load(function() {
     // Start Global Init Function
     window.lightbox = function() {
         var links = $('body').find('.lightbox');
-        if (pinFilter) {
-            var promise = getTackData(pinFilter);
+        if (tackFilter) {
+            var promise = getTackData(tackFilter);
             promise.success(function(tack) {
                 createBox(tack);
             });

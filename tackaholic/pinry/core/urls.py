@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from tastypie.api import Api
 
 from .api import ImageResource, ThumbnailResource, TackResource, UserResource, BoardResource
-from .feeds import LatestPins, LatestUserPins, LatestTagPins
+from .feeds import LatestTacks, LatestUserTacks, LatestTagTacks
 from .views import CreateImage, CreateBoard
 
 
@@ -19,9 +19,9 @@ v1_api.register(BoardResource())
 urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls, namespace='api')),
 
-    url(r'feeds/latest-tacks/tag/(?P<tag>(\w|-)+)/', LatestTagPins()),
-    url(r'feeds/latest-tacks/user/(?P<user>(\w|-)+)/', LatestUserPins()),
-    url(r'feeds/latest-tacks/', LatestPins()),
+    url(r'feeds/latest-tacks/tag/(?P<tag>(\w|-)+)/', LatestTagTacks()),
+    url(r'feeds/latest-tacks/user/(?P<user>(\w|-)+)/', LatestUserTacks()),
+    url(r'feeds/latest-tacks/', LatestTacks()),
 
     url(r'^tacks/tack-form/$', TemplateView.as_view(template_name='core/tack_form.html'),
         name='tack-form'),

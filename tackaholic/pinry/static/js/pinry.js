@@ -51,7 +51,7 @@ $(window).load(function() {
 
         // Edit tack if pencil icon clicked
         $('.glyphicon-pencil').each(function() {
-            var thisPin = $(this);
+            var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
@@ -71,13 +71,13 @@ $(window).load(function() {
 
         // Delete tack if trash icon clicked
         $('.glyphicon-trash').each(function() {
-            var thisPin = $(this);
+            var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
                 $(this).off('click');
                 var promise = deleteTackData($(this).data('id'));
                 promise.success(function() {
-                    thisPin.closest('.tack').remove();
+                    thisTack.closest('.tack').remove();
                     tileLayout('tacks', 'tack');
                 });
                 promise.error(function() {
@@ -94,7 +94,7 @@ $(window).load(function() {
                 $(this).off('click');
                 var promise = deleteBoardData($(this).data('id'));
                 promise.success(function() {
-                    thisPin.closest('.board').remove();
+                    thisTack.closest('.board').remove();
                     tileLayout('boards', 'board');
                 });
                 promise.error(function() {
@@ -105,13 +105,13 @@ $(window).load(function() {
 
         // Show edit-buttons only on mouse over
         $('.' + blockClass).each(function(){
-            var thisPin = $(this);
-            thisPin.find('.editable').hide();
-            thisPin.off('hover');
-            thisPin.hover(function() {
-                thisPin.find('.editable').stop(true, true).fadeIn(300);
+            var thisTack = $(this);
+            thisTack.find('.editable').hide();
+            thisTack.off('hover');
+            thisTack.hover(function() {
+                thisTack.find('.editable').stop(true, true).fadeIn(300);
             }, function() {
-                thisPin.find('.editable').stop(true, false).fadeOut(300);
+                thisTack.find('.editable').stop(true, false).fadeOut(300);
             });
         });
 

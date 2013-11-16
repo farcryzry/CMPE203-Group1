@@ -1,5 +1,5 @@
 from .api import *
 from .forms import *
-from .helpers import PinFactoryTest
+from .helpers import TackFactoryTest
 from .views import *
 
