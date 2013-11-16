@@ -66,7 +66,12 @@ $(window).load(function() {
             $('#tack-form-tags')],
             pinFromUrl = getUrlParameter('tack-image-url');
         // If editable grab existing data
+
+        $('#tack-form h3.modal-title').text('New Tack')
+
         if (editPinId) {
+            $('#tack-form h3.modal-title').text('Edit Tack')
+
             var promise = getPinData(editPinId);
             promise.success(function(data) {
                 editedPin = data;
