@@ -21,12 +21,9 @@
                                 <label for="board-form-category">Category</label>
 
                                 <select name="board-form-category" id="board-form-category" class="form-control">
-                                    <option>Pets</option>
-                                    <option>Garden</option>
-                                    <option>Food</option>
-                                    <option>Scenery</option>
-                                    <option>People</option>
-                                    <option>Movie</option>
+                                    {{#each category}}
+                                        <Option value='{{name}}'>{{name}}</Option>
+                                    {{/each}}
                                 </select>
 
                             </div>

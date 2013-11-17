@@ -5,7 +5,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
 from django_images.models import Thumbnail
 
-from .models import Tack, Image, Board
+from .models import Tack, Image, Board, Category
 from ..users.models import User
 
 
@@ -82,7 +82,7 @@ class ImageResource(ModelResource):
                                attribute=lambda bundle: filter_generator_for('square')(bundle))
 
     class Meta:
-        fields = ['image', 'width', 'height']
+        fields = ['image', 'width', 'height', 'id']
         include_resource_uri = False
         resource_name = 'image'
         queryset = Image.objects.all()
@@ -90,7 +90,8 @@ class ImageResource(ModelResource):
 
 class BoardResource(ModelResource):
     owner = fields.ToOneField(UserResource, 'owner', full=True)
-    cover = fields.ToOneField('pinry.core.api.TackResource', 'cover', null=True, blank=True, full=False)
+    cover = fields.ToOneField(ImageResource, 'cover', full=True)
+    #cover = fields.ToOneField('pinry.core.api.TackResource', 'cover', null=True, blank=True, full=True)
     #name = fields.CharField()
     #description = fields.CharField()
     #category = fields.CharField()
@@ -110,7 +111,6 @@ class BoardResource(ModelResource):
     #    return bundle
 
     class Meta:
-        #fields = ['id', 'name','description', 'category']
         ordering = ['id', 'name']
         filtering = {
             'owner': ALL_WITH_RELATIONS,
@@ -118,7 +118,6 @@ class BoardResource(ModelResource):
         }
         queryset = Board.objects.all()
         resource_name = 'board'
-        #fields = ['id']
         include_resource_uri = False
         always_return_data = True
         authorization = DjangoAuthorization()
@@ -178,3 +177,8 @@ class TackResource(ModelResource):
         always_return_data = True
         authorization = PinryAuthorization()
 
+class CategoryResource(ModelResource):
+    class Meta:
+        ordering = ['name']
+        queryset = Category.objects.all()
+        include_resource_uri = False

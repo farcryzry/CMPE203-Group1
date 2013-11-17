@@ -44,7 +44,7 @@ class Board(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=100)
-    cover = models.ForeignKey('Tack', blank=True, null=True, related_name='cover')
+    cover = models.ForeignKey(Image, blank=True, null=True, related_name='cover')
     is_public = models.BooleanField(default=True)
 
     def __unicode__(self):

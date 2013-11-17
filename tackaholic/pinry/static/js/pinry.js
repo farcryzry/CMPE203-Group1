@@ -205,19 +205,49 @@ $(window).load(function() {
         // Show our loading symbol
         $('.spinner').css('display', 'block');
 
-        // Fetch our tacks from the api using our current offset
+        // Fetch our boards from the api using our current offset
         var apiUrl = '/api/v1/board/?format=json&order_by=-id&offset='+String(offset);
         if (userFilter) apiUrl = apiUrl + '&owner__username=' + userFilter;
+
         $.get(apiUrl, function(boards) {
             var showBoards = [];
-            // Set which items are editable by the current user
+            // Set which boards are displayed
             for (var i=0; i < boards.objects.length; i++)
             {
                 if (boards.objects[i].owner.username == currentUser.username)
                 {
                     boards.objects[i].editable = true;
+                    var boardId = boards.objects[i].id;
+                       /*
+                    var data = {
+                                cover: '/api/v1/image/17/'
+                            };
+                            $.ajax({
+                                type: "put",
+                                url: '/api/v1/board/'+ boardId +'/?format=json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data)
+                            });
+                     */
+                    // update the cover
+                    var tacksUrl = '/api/v1/tack/?format=json&order_by=-id&board__id='+boardId;
+                    $.get(tacksUrl, function(tacks) {
+                        // Set the latest tack as the cover image
+                        if (tacks.objects.length > 0) {
+                            var data = {
+                                cover: '/api/v1/image/'+tacks.objects[0].image.id+'/'
+                            };
+                            $.ajax({
+                                type: "put",
+                                url: '/api/v1/board/'+ boardId +'/?format=json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data)
+                            });
+                        }
+                    });
                     showBoards.push(boards.objects[i]);
                 }
+
             }
             // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#boards-template').html());

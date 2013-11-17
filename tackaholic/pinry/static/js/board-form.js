@@ -39,7 +39,11 @@ $(window).load(function() {
 
     // Start View Functions
     function createBoardForm(editBoardId) {
-        $('body').append(renderTemplate('#board-form-template', ''));
+        var promise = getCategoryListData();
+        promise.success(function(data) {
+            $('body').append(renderTemplate('#board-form-template', {category: data.objects}));
+        });
+
         var modal = $('#board-form'),
             formFields = [$('#board-form-name'), $('#board-form-description'),
             $('#board-form-category')];
@@ -76,16 +80,30 @@ $(window).load(function() {
                     contentType: 'application/json',
                     data: JSON.stringify(data)
                 });
+
                 promise.success(function(board) {
+                    board.editable = true;
+                    var renderedBoard = renderTemplate('#boards-template', {
+                        boards: [
+                            board
+                        ]
+                    });
+                    $('#boards').find('.board[data-id="'+board.id+'"]').replaceWith(renderedBoard);
+                    tileLayout();
+                    lightbox();
                     dismissModal(modal);
                     editedBoard = null;
+                    message('Board updated, please refresh to see it.', 'alert alert-sucess');
                 });
+
                 promise.error(function() {
                     message('Problem creating new board.', 'alert alert-warning');
                 });
+
             } else {
                 var data = {
                     owner: '/api/v1/user/'+currentUser.id+'/',
+                    cover: '/api/v1/image/17/',     //default cover image
                     name: $('#board-form-name').val(),
                     description: $('#board-form-description').val(),
                     category: $('#board-form-category').val()
@@ -93,7 +111,12 @@ $(window).load(function() {
                 var promise = postBoardData(data);
                 promise.success(function(board) {
                     board.editable = true;
+                    board = renderTemplate('#boards-template', {boards: [board]});
+                    $('#boards').prepend(board);
+                    tileLayout();
+                    lightbox();
                     dismissModal(modal);
+                    message('New board added, please refresh to see it.', 'alert alert-sucess');
                 });
                 promise.error(function() {
                     message('Problem creating new board.', 'alert alert-warning');

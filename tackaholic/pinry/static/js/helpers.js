@@ -79,6 +79,11 @@ function postBoardData(data) {
     });
 }
 
+function getCategoryListData() {
+    var apiUrl = '/api/v1/category/?format=json&order_by=name';
+    return $.get(apiUrl);
+}
+
 function getUrlParameter(name) {
     var decode = decodeURI(
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
