@@ -218,20 +218,9 @@ $(window).load(function() {
                 {
                     boards.objects[i].editable = true;
                     var boardId = boards.objects[i].id;
-                       /*
-                    var data = {
-                                cover: '/api/v1/image/17/'
-                            };
-                            $.ajax({
-                                type: "put",
-                                url: '/api/v1/board/'+ boardId +'/?format=json',
-                                contentType: 'application/json',
-                                data: JSON.stringify(data)
-                            });
-                     */
+
                     // update the cover
-                    var tacksUrl = '/api/v1/tack/?format=json&order_by=-id&board__id='+boardId;
-                    $.get(tacksUrl, function(tacks) {
+                    $.get('/api/v1/tack/?format=json&order_by=-id&board__id='+boardId, function(tacks) {
                         // Set the latest tack as the cover image
                         if (tacks.objects.length > 0) {
                             var data = {
@@ -239,7 +228,7 @@ $(window).load(function() {
                             };
                             $.ajax({
                                 type: "put",
-                                url: '/api/v1/board/'+ boardId +'/?format=json',
+                                url: '/api/v1/board/'+ tacks.objects[0].board.id +'/?format=json',
                                 contentType: 'application/json',
                                 data: JSON.stringify(data)
                             });
@@ -265,7 +254,7 @@ $(window).load(function() {
                 });
             });
 
-            if (boards.objects.length < apiLimitPerPage) {
+            if (showBoards.length < apiLimitPerPage) {
                 $('.spinner').css('display', 'none');
                 if ($('#boards').length != 0) {
                     var theEnd = document.createElement('div');
