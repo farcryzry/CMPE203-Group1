@@ -23,7 +23,7 @@ $ python setup.py install
 //Run in command Line
 $ python manage.py runserver
 
-
+==============
 How to show debug information in web page?
 
 1. Install django debug toolbar(https://github.com/django-debug-toolbar/django-debug-toolbar) <br>
