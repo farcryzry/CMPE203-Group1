@@ -22,3 +22,9 @@ $ python setup.py install
 4.  Start web server and enjoy.<br>
 //Run in command Line
 $ python manage.py runserver
+
+
+How to show debug information in web page?
+
+1. Install django debug toolbar(https://github.com/django-debug-toolbar/django-debug-toolbar) <br>
+Follow the steps here http://django-debug-toolbar.readthedocs.org/en/latest/panels.html <br>
