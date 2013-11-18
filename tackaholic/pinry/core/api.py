@@ -91,7 +91,6 @@ class ImageResource(ModelResource):
 class BoardResource(ModelResource):
     owner = fields.ToOneField(UserResource, 'owner', full=True)
     cover = fields.ToOneField(ImageResource, 'cover', full=True)
-    #cover = fields.ToOneField('pinry.core.api.TackResource', 'cover', null=True, blank=True, full=True)
     #name = fields.CharField()
     #description = fields.CharField()
     #category = fields.CharField()

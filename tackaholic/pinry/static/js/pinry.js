@@ -198,6 +198,27 @@ $(window).load(function() {
         offset += apiLimitPerPage;
     }
 
+    function updateCover(boardId) {
+        $.get('/api/v1/tack/?format=json&order_by=-id&board__id='+boardId, function(tacks) {
+            // Set the latest tack as the cover image
+            var coverUrl;
+            if (tacks.objects.length > 0) {
+                coverUrl = '/api/v1/image/'+tacks.objects[0].image.id+'/';
+            } else {
+                // if the board is empty, reset cover to the default image
+                coverUrl = '/api/v1/image/17/';
+            }
+
+            var data = {cover: coverUrl};
+            $.ajax({
+                type: "put",
+                url: '/api/v1/board/'+ boardId +'/?format=json',
+                contentType: 'application/json',
+                data: JSON.stringify(data)
+            });
+        });
+    }
+
     function loadBoards() {
         // Disable scroll
         $(window).off('scroll');
@@ -217,23 +238,9 @@ $(window).load(function() {
                 if (boards.objects[i].owner.username == currentUser.username)
                 {
                     boards.objects[i].editable = true;
-                    var boardId = boards.objects[i].id;
 
                     // update the cover
-                    $.get('/api/v1/tack/?format=json&order_by=-id&board__id='+boardId, function(tacks) {
-                        // Set the latest tack as the cover image
-                        if (tacks.objects.length > 0) {
-                            var data = {
-                                cover: '/api/v1/image/'+tacks.objects[0].image.id+'/'
-                            };
-                            $.ajax({
-                                type: "put",
-                                url: '/api/v1/board/'+ tacks.objects[0].board.id +'/?format=json',
-                                contentType: 'application/json',
-                                data: JSON.stringify(data)
-                            });
-                        }
-                    });
+                    updateCover(boards.objects[i].id);
                     showBoards.push(boards.objects[i]);
                 }
 
