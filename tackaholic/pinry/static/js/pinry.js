@@ -252,11 +252,16 @@ $(window).load(function() {
             if(userFilter && boardOwner != currentUser.username) {
                 $('#boards_title h1').text(boardOwner + "'s Page");
                 $('#boards_new a').remove();
-                $('#boards_new').html('<button class="btn btn-primary">Follow All</button>');
+                $('#boards_new').html('<a class="btn btn-primary">Follow All</a>');
             }
 
             // Append the newly compiled data to our container
             $('#boards').append(html);
+
+            $('#boards_new #add').click(function(){
+                boardForm();
+            });
+
 
             // We need to then wait for images to load in and then tile
             tileLayout('boards', 'board');
