@@ -13,6 +13,17 @@ $(window).load(function() {
      * was put into a function in order to adjust frequently on screen size 
      * changes.
      */
+    function loadCategory() {
+        var promise = getCategoryListData();
+
+        promise.success(function(data) {
+            var menu='<li><a href="/boards/"> All </a></li>';
+            for(var i=0; i< data.objects.length; i++)
+                menu = menu + '<li><a href="/boards/category/'+ data.objects[i].name +'/">'+ data.objects[i].name +'</a></li>';
+            $('#dropdown-category').html(menu);
+        });
+    }
+
     window.tileLayout = function(containerId, blockClass) {
 
         var blockContainer = $('#' + containerId),
@@ -318,6 +329,7 @@ $(window).load(function() {
     else if (urlName.indexOf('boards') >= 0) {
         loadBoards();
     }
+    loadCategory();
 
     // If our window gets resized keep the tiles looking clean and in our window
     $(window).resize(function() {

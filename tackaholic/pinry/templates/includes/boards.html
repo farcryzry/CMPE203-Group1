@@ -13,11 +13,18 @@
                 </div>
             {{/if}}
             <a href="/tacks/board/{{id}}/" style="text-align: center;"><h3><b>{{name}}</b></h3></a>
-
                 <div class="image-wrapper" style="height: 150px; background-image: url({{cover.thumbnail.image}}) ">
                 </div>
-                <div class="board-footer clearfix">{{description}}</div>
-        </div>
+                <p>{{description}}</p>
+                <div class="tack-footer clearfix">
+                    <div class="text pull-left">
+                    <span class="dim">Created by</span>
+                    <a href="/boards/user/{{owner.username}}/">{{owner.username}}</a>
+                    <br/>
+                    <span class="dim">Category - <a href="/boards/category/{{category}}/">{{category}}</a></span>
+                    </div>
+                </div>
+            </div>
         {{/each}}
     </script>
 {% endverbatim %}

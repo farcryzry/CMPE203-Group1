@@ -88,11 +88,8 @@
                                   Category
                                   <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu">
-                                  <li><a href="/boards/category/Pets/">Pets</a></li>
-                                  <li><a href="/boards/category/Movie/">Movie</a></li>
-                                </ul>
-                              </li>
+                                <ul class="dropdown-menu" id="dropdown-category"></ul>
+                        </li>
                         {% if user.is_authenticated %}
                             <li><a onclick="tackForm()">New Tack</a></li>
                             <li><a href="/boards/user/{{ user.username }}/">Board</a></li>
