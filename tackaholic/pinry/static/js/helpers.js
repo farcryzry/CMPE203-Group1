@@ -91,3 +91,16 @@ function getUrlParameter(name) {
     if (decode == 'null') return null;
     else return decode;
 }
+
+function getBoardDataWithCallback(boardId, callback) {
+    return $.get('/api/v1/tack/?format=json&order_by=-id&board__id='+boardId, callback);
+}
+
+function putBoardData(boardId, data) {
+    return $.ajax({
+        type: "put",
+        url: '/api/v1/board/'+ boardId +'/?format=json',
+        contentType: 'application/json',
+        data: JSON.stringify(data)
+    });
+}

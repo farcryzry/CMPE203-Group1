@@ -43,7 +43,7 @@ $(window).load(function() {
             }
             block.css({
                 'margin-left': rowMargins[sCol],
-                'margin-top':  colHeights[sCol],
+                'margin-top':  colHeights[sCol]
             });
             block.fadeIn(300);
             colHeights[sCol] += block.height()+(blockMargin);
@@ -198,23 +198,26 @@ $(window).load(function() {
         offset += apiLimitPerPage;
     }
 
-    function updateCover(boardId) {
-        $.get('/api/v1/tack/?format=json&order_by=-id&board__id='+boardId, function(tacks) {
-            // Set the latest tack as the cover image
-            var coverUrl;
-            if (tacks.objects.length > 0) {
-                coverUrl = '/api/v1/image/'+tacks.objects[0].image.id+'/';
-            } else {
-                // if the board is empty, reset cover to the default image
-                coverUrl = '/api/v1/image/17/';
-            }
+    function updateBoardCover(boardClass) {
 
-            var data = {cover: coverUrl};
-            $.ajax({
-                type: "put",
-                url: '/api/v1/board/'+ boardId +'/?format=json',
-                contentType: 'application/json',
-                data: JSON.stringify(data)
+        var boards = $(boardClass);
+
+        boards.each(function(){
+            var $board = $(this);
+            var boardId = $(this).data('id');
+            getBoardDataWithCallback(boardId, function(tacks) {
+                // Set the latest tack as the cover image
+                var coverUrl = '/api/v1/image/17/'; //default image
+                if (tacks.objects.length > 0) {
+                    coverUrl = '/api/v1/image/'+tacks.objects[0].image.id+'/';
+                }
+                var promise = putBoardData(boardId, {cover: coverUrl});
+                    promise.success(function(modifiedBoard) {
+                        $board.children('.image-wrapper').css('background-image', 'url(' + modifiedBoard.cover.thumbnail.image + ')');
+                    });
+                    promise.error(function() {
+                        message('Problem updating cover.', 'alert alert-warning');
+                    });
             });
         });
     }
@@ -230,7 +233,7 @@ $(window).load(function() {
         var apiUrl = '/api/v1/board/?format=json&order_by=-id&offset='+String(offset);
         if (userFilter) apiUrl = apiUrl + '&owner__username=' + userFilter;
 
-        $.get(apiUrl, function(boards) {
+        var promise = $.get(apiUrl, function(boards) {
             var showBoards = [];
             // Set which boards are displayed
             for (var i=0; i < boards.objects.length; i++)
@@ -238,9 +241,6 @@ $(window).load(function() {
                 if (boards.objects[i].owner.username == currentUser.username)
                 {
                     boards.objects[i].editable = true;
-
-                    // update the cover
-                    updateCover(boards.objects[i].id);
                     showBoards.push(boards.objects[i]);
                 }
 
@@ -273,6 +273,10 @@ $(window).load(function() {
             } else {
                 $(window).scroll(scrollHandler);
             }
+        });
+
+        promise.success(function(){
+            updateBoardCover("#boards .board");
         });
 
         // Up our offset, it's currently defined as 50 in our settings
