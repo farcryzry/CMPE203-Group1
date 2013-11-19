@@ -55,7 +55,7 @@ function deleteTackData(tackId) {
 }
 
 function deleteBoardData(boardId) {
-    var apiUrl = '/api/v1/tack/'+boardId+'/?format=json';
+    var apiUrl = '/api/v1/board/'+boardId+'/?format=json';
     return $.ajax(apiUrl, {
         type: 'DELETE'
     });

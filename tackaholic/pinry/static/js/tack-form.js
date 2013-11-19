@@ -163,7 +163,7 @@ $(window).load(function() {
                         ]
                     });
                     $('#tacks').find('.tack[data-id="'+tack.id+'"]').replaceWith(renderedTack);
-                    tileLayout();
+                    tileLayout('tacks', 'tack');
                     lightbox();
                     dismissModal(modal);
                     editedTack = null;
@@ -187,7 +187,7 @@ $(window).load(function() {
                     tack.editable = true;
                     tack = renderTemplate('#tacks-template', {tacks: [tack]});
                     $('#tacks').prepend(tack);
-                    tileLayout();
+                    tileLayout('tacks', 'tack');
                     lightbox();
                     dismissModal(modal);
                     uploadedImage = false;

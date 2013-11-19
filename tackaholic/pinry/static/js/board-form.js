@@ -91,7 +91,7 @@ $(window).load(function() {
                         ]
                     });
                     $('#boards').find('.board[data-id="'+board.id+'"]').replaceWith(renderedBoard);
-                    tileLayout();
+                    tileLayout('boards', 'board');
                     lightbox();
                     dismissModal(modal);
                     editedBoard = null;
@@ -116,7 +116,7 @@ $(window).load(function() {
                     board.editable = true;
                     board = renderTemplate('#boards-template', {boards: [board]});
                     $('#boards').prepend(board);
-                    tileLayout();
+                    tileLayout('boards', 'board');
                     lightbox();
                     dismissModal(modal);
                     message('New board added, please refresh to see it.', 'alert alert-sucess');
