@@ -1,6 +1,6 @@
 /* Start Globals */
 body {
-    background: #F5F5EB;
+    background: #DBDBD7;
     margin-top: 80px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -177,7 +177,7 @@ textarea {
 }
 
 .board {
-    background: #fff;
+    background-color: #f4f4f4;
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
@@ -219,10 +219,6 @@ textarea {
     background-image: url("../img/loader.gif");
     background-position: center center;
     background-repeat: no-repeat;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .board img {
@@ -371,6 +367,9 @@ textarea {
     font-size: 12px;
     font-weight: bold;
     padding: 10px;
+    background-color: #f4f4f4;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .tack-footer .dim {
