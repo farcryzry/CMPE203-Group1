@@ -155,10 +155,6 @@ $(window).load(function() {
 
             // Append the newly compiled data to our container
 
-            if(userFilter) {
-                $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>" + currentUser.username + "'s Page</h1>");
-            }
-
             if(tagFilter) {
                 $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>Tacks Under Tag " + tagFilter + "</h1>");
             }
@@ -222,6 +218,7 @@ $(window).load(function() {
         });
     }
 
+
     function loadBoards() {
         // Disable scroll
         $(window).off('scroll');
@@ -235,12 +232,15 @@ $(window).load(function() {
 
         var promise = $.get(apiUrl, function(boards) {
             var showBoards = [];
-            // Set which boards are displayed
+
+            var boardOwner = userFilter ? userFilter : currentUser.username;
+
             for (var i=0; i < boards.objects.length; i++)
             {
-                if (boards.objects[i].owner.username == currentUser.username)
+                if (boards.objects[i].owner.username == boardOwner)
                 {
-                    boards.objects[i].editable = true;
+                    if (boardOwner == currentUser.username)
+                        boards.objects[i].editable = true;
                     showBoards.push(boards.objects[i]);
                 }
 
@@ -248,6 +248,12 @@ $(window).load(function() {
             // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#boards-template').html());
             var html = template({boards: showBoards});
+
+            if(userFilter && boardOwner != currentUser.username) {
+                $('#boards_title h1').text(boardOwner + "'s Page");
+                $('#boards_new a').remove();
+                $('#boards_new').html('<button class="btn btn-primary">Follow All</button>');
+            }
 
             // Append the newly compiled data to our container
             $('#boards').append(html);
@@ -276,7 +282,9 @@ $(window).load(function() {
         });
 
         promise.success(function(){
-            updateBoardCover("#boards .board");
+            if(userFilter == currentUser.username) {
+                updateBoardCover("#boards .board");
+            }
         });
 
         // Up our offset, it's currently defined as 50 in our settings
@@ -289,7 +297,7 @@ $(window).load(function() {
         loadTacks();
         //tileLayout('tacks', 'tack');
     }
-    else if (urlName == 'board') {
+    else if (urlName.indexOf('boards') >= 0) {
         loadBoards();
         //tileLayout('boards', 'board');
     }

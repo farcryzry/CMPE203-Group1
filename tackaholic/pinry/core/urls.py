@@ -38,7 +38,8 @@ urlpatterns = patterns('',
         name='recent-tacks'),
     url(r'^$', TemplateView.as_view(template_name='core/tacks.html'),
         name='recent-tacks'),
-    url(r'^board/$', TemplateView.as_view(template_name='core/boards.html'), name='board'),
-    url(r'^board/create-board/$', CreateBoard.as_view(), name='create-board'),
-
+    url(r'^boards/$', TemplateView.as_view(template_name='core/boards.html'), name='boards'),
+    url(r'^boards/create-board/$', CreateBoard.as_view(), name='create-board'),
+    url(r'^boards/user/(?P<user>(\w|-)+)/$', TemplateView.as_view(template_name='core/boards.html'),
+        name='user-boards'),
 )
