@@ -59,6 +59,7 @@ $(window).load(function() {
                 $('#board-form-name').val(editedBoard.name);
                 $('#board-form-description').val(editedBoard.description);
                 $('#board-form-category').val(editedBoard.category);
+                $('#board-form-secret').prop('checked', editedBoard.secret);
             });
         }
         modal.modal('show');
@@ -72,7 +73,8 @@ $(window).load(function() {
                 var data = {
                     name: $('#board-form-name').val(),
                     description: $('#board-form-description').val(),
-                    category: $('#board-form-category').val()
+                    category: $('#board-form-category').val(),
+                    secret: $('#board-form-secret').is(':checked')
                 }
                 var promise = $.ajax({
                     type: "put",
@@ -106,7 +108,8 @@ $(window).load(function() {
                     cover: '/api/v1/image/17/',     //default cover image
                     name: $('#board-form-name').val(),
                     description: $('#board-form-description').val(),
-                    category: $('#board-form-category').val()
+                    category: $('#board-form-category').val(),
+                    secret: $('#board-form-secret').is(':checked')
                 };
                 var promise = postBoardData(data);
                 promise.success(function(board) {

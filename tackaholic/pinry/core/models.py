@@ -45,7 +45,7 @@ class Board(models.Model):
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=100)
     cover = models.ForeignKey(Image, blank=True, null=True, related_name='cover')
-    is_public = models.BooleanField(default=True)
+    secret = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name

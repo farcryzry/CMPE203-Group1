@@ -54,17 +54,17 @@ $(window).load(function() {
             var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
-                $(this).off('click');
+                //$(this).off('click');
                 tackForm($(this).data('id'));
             });
         });
 
-        // Edit board if pencil icon clicked
+        // Edit board if edit icon clicked
         $('.glyphicon-edit').each(function() {
             var thisBoard = $(this);
             $(this).off('click');
             $(this).click(function() {
-                $(this).off('click');
+                //$(this).off('click');
                 boardForm($(this).data('id'));
             });
         });
@@ -74,7 +74,7 @@ $(window).load(function() {
             var thisTack = $(this);
             $(this).off('click');
             $(this).click(function() {
-                $(this).off('click');
+                //$(this).off('click');
                 var promise = deleteTackData($(this).data('id'));
                 promise.success(function() {
                     thisTack.closest('.tack').remove();
@@ -91,10 +91,10 @@ $(window).load(function() {
             var thisBoard = $(this);
             $(this).off('click');
             $(this).click(function() {
-                $(this).off('click');
+                //$(this).off('click');
                 var promise = deleteBoardData($(this).data('id'));
                 promise.success(function() {
-                    thisTack.closest('.board').remove();
+                    thisBoard.closest('.board').remove();
                     tileLayout('boards', 'board');
                 });
                 promise.error(function() {
@@ -281,10 +281,14 @@ $(window).load(function() {
 
     // Set offset for loadTacks and do our initial load
     var offset = 0;
-    if(urlName.indexOf('tacks') >= 0)
+    if(urlName.indexOf('tacks') >= 0) {
         loadTacks();
-    else if (urlName == 'board')
+        //tileLayout('tacks', 'tack');
+    }
+    else if (urlName == 'board') {
         loadBoards();
+        //tileLayout('boards', 'board');
+    }
 
     // If our window gets resized keep the tiles looking clean and in our window
     $(window).resize(function() {
