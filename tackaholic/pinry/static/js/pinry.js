@@ -229,6 +229,7 @@ $(window).load(function() {
         // Fetch our boards from the api using our current offset
         var apiUrl = '/api/v1/board/?format=json&order_by=-id&offset='+String(offset);
         if (userFilter) apiUrl = apiUrl + '&owner__username=' + userFilter;
+        if (categoryFilter) apiUrl = apiUrl + '&category=' + categoryFilter;
 
         var promise = $.get(apiUrl, function(boards) {
             var showBoards = [];
@@ -236,6 +237,8 @@ $(window).load(function() {
             var boardOwner = userFilter ? userFilter : currentUser.username;
 
             for (var i=0; i < boards.objects.length; i++)
+                boards.objects[i].editable = (boards.objects[i].owner.username == currentUser.username);
+            /*
             {
                 if (boards.objects[i].owner.username == boardOwner)
                 {
@@ -244,15 +247,26 @@ $(window).load(function() {
                     showBoards.push(boards.objects[i]);
                 }
 
-            }
+            }*/
             // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#boards-template').html());
-            var html = template({boards: showBoards});
+            //var html = template({boards: showBoards});
+            var html = template({boards: boards.objects});
 
             if(userFilter && boardOwner != currentUser.username) {
                 $('#boards_title h1').text(boardOwner + "'s Page");
                 $('#boards_new a').remove();
                 $('#boards_new').html('<a class="btn btn-primary">Follow All</a>');
+            }
+
+            if(categoryFilter) {
+                $('#boards_title h1').text("Category - " + categoryFilter);
+                $('#boards_new a').remove();
+            }
+
+            if(!userFilter && !categoryFilter) {
+                $('#boards_title h1').text("All Boards");
+                $('#boards_new a').remove();
             }
 
             // Append the newly compiled data to our container
@@ -272,7 +286,7 @@ $(window).load(function() {
                 });
             });
 
-            if (showBoards.length < apiLimitPerPage) {
+            if (boards.objects.length < apiLimitPerPage) {
                 $('.spinner').css('display', 'none');
                 if ($('#boards').length != 0) {
                     var theEnd = document.createElement('div');
@@ -300,11 +314,9 @@ $(window).load(function() {
     var offset = 0;
     if(urlName.indexOf('tacks') >= 0) {
         loadTacks();
-        //tileLayout('tacks', 'tack');
     }
     else if (urlName.indexOf('boards') >= 0) {
         loadBoards();
-        //tileLayout('boards', 'board');
     }
 
     // If our window gets resized keep the tiles looking clean and in our window

@@ -42,4 +42,6 @@ urlpatterns = patterns('',
     url(r'^boards/create-board/$', CreateBoard.as_view(), name='create-board'),
     url(r'^boards/user/(?P<user>(\w|-)+)/$', TemplateView.as_view(template_name='core/boards.html'),
         name='user-boards'),
+    url(r'^boards/category/(?P<category>(\w|-)+)/$', TemplateView.as_view(template_name='core/boards.html'),
+        name='category-boards'),
 )

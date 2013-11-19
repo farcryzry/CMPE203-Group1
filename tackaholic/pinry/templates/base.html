@@ -58,10 +58,10 @@
             },
             tackFilter = "{{ request.resolver_match.kwargs.tack }}",
             boardFilter = "{{ request.resolver_match.kwargs.board }}",
+            categoryFilter = "{{ request.resolver_match.kwargs.category }}",
             tagFilter = "{{ request.resolver_match.kwargs.tag }}",
             userFilter = "{{ request.resolver_match.kwargs.user }}";
             urlName = "{{ request.resolver_match.url_name }}";
-
         </script>
         <!-- End JavaScript Variables -->
     </head>
@@ -83,9 +83,19 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="btn-group" style="margin-top: 10px">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                  Category
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="/boards/category/Pets/">Pets</a></li>
+                                  <li><a href="/boards/category/Movie/">Movie</a></li>
+                                </ul>
+                              </li>
                         {% if user.is_authenticated %}
                             <li><a onclick="tackForm()">New Tack</a></li>
-                            <li><a href="{% url 'core:boards' %}">Board</a></li>
+                            <li><a href="/boards/user/{{ user.username }}/">Board</a></li>
                             <li><a href="{% url 'users:settings' %}">Settings</a></li>
                             <li><a href="{% url 'users:logout' %}">Logout</a></li>
                             <!--<li>{% include "includes/bookmarklet_link.html" %}</li>-->
