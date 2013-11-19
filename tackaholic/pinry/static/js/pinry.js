@@ -114,6 +114,15 @@ $(window).load(function() {
             });
         });
 
+        // Like tack
+        $('.glyphicon-empty-heart').each(function() {
+            var thisTack = $(this);
+            //$(this).off('click');
+            $(this).click(function() {
+                //
+            });
+        });
+
         // Show edit-buttons only on mouse over
         $('.' + blockClass).each(function(){
             var thisTack = $(this);
@@ -139,6 +148,12 @@ $(window).load(function() {
         if(windowPosition > bottom) loadTacks();
     }
 
+    window.boardScrollHandler = function() {
+        var windowPosition = $(window).scrollTop() + $(window).height();
+        var bottom = $(document).height() - 100;
+        if(windowPosition > bottom) loadBoards();
+    }
+
     /**
      * Load our tacks using the tacks template into our UI, be sure to define a
      * offset outside the function to keep a running tally of your location.
@@ -156,13 +171,20 @@ $(window).load(function() {
         if (userFilter) apiUrl = apiUrl + '&submitter__username=' + userFilter;
         if (boardFilter) apiUrl = apiUrl + '&board__id=' + boardFilter;
         $.get(apiUrl, function(tacks) {
+            var showTacks = [];
             // Set which items are editable by the current user
             for (var i=0; i < tacks.objects.length; i++)
-                tacks.objects[i].editable = (tacks.objects[i].submitter.username == currentUser.username);
-
+            {
+                if(tacks.objects[i].submitter.username == currentUser.username)
+                    tacks.objects[i].editable = true;
+                //hide tacks under secret board from other users
+                else if(tacks.objects[i].board.secret)
+                    continue;
+                showTacks.push(tacks.objects[i]);
+            }
             // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#tacks-template').html());
-            var html = template({tacks: tacks.objects});
+            var html = template({tacks: showTacks});
 
             // Append the newly compiled data to our container
 
@@ -173,7 +195,12 @@ $(window).load(function() {
             if(boardFilter) {
                 var promise = getBoardData(boardFilter);
                 promise.success(function(board){
-                    $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>" + board.name + "</h1>");});
+                    $( "#tacks" ).before("<h1 style='text-align:center'>" + board.name + "</h1>" +
+                        "<div style='text-align: right; margin-right: 50px'><a class='btn btn-primary'>Follow</a>" +
+                        "<a class='btn btn-warning'>Unfollow</a>" +
+                        "<a class='btn btn-success'>Followers</a></div>" +
+                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> ");
+                });
             }
 
             $('#tacks').append(html);
@@ -187,7 +214,7 @@ $(window).load(function() {
                 });
             });
 
-            if (tacks.objects.length < apiLimitPerPage) {
+            if (showTacks.length < apiLimitPerPage) {
                 $('.spinner').css('display', 'none');
                 if ($('#tacks').length != 0) {
                     var theEnd = document.createElement('div');
@@ -211,19 +238,24 @@ $(window).load(function() {
 
         boards.each(function(){
             var $board = $(this);
+            var $count = $board.find('#count-tacks');
+
             var boardId = $(this).data('id');
             getBoardDataWithCallback(boardId, function(tacks) {
                 // Set the latest tack as the cover image
                 var coverUrl = '/api/v1/image/17/'; //default image
-                if (tacks.objects.length > 0) {
+                var numTacks = tacks.objects.length;
+                if (numTacks > 0) {
                     coverUrl = '/api/v1/image/'+tacks.objects[0].image.id+'/';
                 }
-                var promise = putBoardData(boardId, {cover: coverUrl});
+                var promise = putBoardData(boardId, {cover: coverUrl,
+                                                     num_tacks: numTacks});
                     promise.success(function(modifiedBoard) {
                         $board.children('.image-wrapper').css('background-image', 'url(' + modifiedBoard.cover.thumbnail.image + ')');
+                        $count.text(modifiedBoard.num_tacks + " tacks");
                     });
                     promise.error(function() {
-                        message('Problem updating cover.', 'alert alert-warning');
+                        message('Problem updating cover.', 'alert alert-warning');ß
                     });
             });
         });
@@ -248,21 +280,18 @@ $(window).load(function() {
             var boardOwner = userFilter ? userFilter : currentUser.username;
 
             for (var i=0; i < boards.objects.length; i++)
-                boards.objects[i].editable = (boards.objects[i].owner.username == currentUser.username);
-            /*
             {
-                if (boards.objects[i].owner.username == boardOwner)
-                {
-                    if (boardOwner == currentUser.username)
-                        boards.objects[i].editable = true;
-                    showBoards.push(boards.objects[i]);
-                }
+                if(boards.objects[i].owner.username == currentUser.username)
+                    boards.objects[i].editable = true;
+                // hide secret board from other users
+                else if(boards.objects[i].secret)
+                    continue;
+                showBoards.push(boards.objects[i]);
+            }
 
-            }*/
             // Use the fetched tacks as our context for our tacks template
             var template = Handlebars.compile($('#boards-template').html());
-            //var html = template({boards: showBoards});
-            var html = template({boards: boards.objects});
+            var html = template({boards: showBoards});
 
             if(userFilter && boardOwner != currentUser.username) {
                 $('#boards_title h1').text(boardOwner + "'s Page");
@@ -297,7 +326,7 @@ $(window).load(function() {
                 });
             });
 
-            if (boards.objects.length < apiLimitPerPage) {
+            if (showBoards.length < apiLimitPerPage) {
                 $('.spinner').css('display', 'none');
                 if ($('#boards').length != 0) {
                     var theEnd = document.createElement('div');
@@ -307,14 +336,14 @@ $(window).load(function() {
                     $('body').append(theEnd);
                 }
             } else {
-                $(window).scroll(scrollHandler);
+                $(window).scroll(boardScrollHandler);
             }
         });
 
         promise.success(function(){
-            if(userFilter == currentUser.username) {
+            //if(userFilter == currentUser.username) {
                 updateBoardCover("#boards .board");
-            }
+           // }
         });
 
         // Up our offset, it's currently defined as 50 in our settings

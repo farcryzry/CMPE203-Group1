@@ -46,6 +46,7 @@ class Board(models.Model):
     category = models.CharField(max_length=100)
     cover = models.ForeignKey(Image, blank=True, null=True, related_name='cover')
     secret = models.BooleanField(default=False)
+    num_tacks = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name

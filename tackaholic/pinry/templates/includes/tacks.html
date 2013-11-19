@@ -2,16 +2,19 @@
     <script id="tacks-template" type="text/x-handlebars-template">
         {{#each tacks}}
         <div class="tack" data-id="{{id}}">
+        <div class="editable">
             {{#if editable}}
-                <div class="editable">
                     <div class="borderable">
                         <span class="glyphicon glyphicon-trash" data-id="{{id}}"></span>
                     </div>
                     <div class="borderable">
                         <span class="glyphicon glyphicon-pencil" data-id="{{id}}"></span>
                     </div>
-                </div>
             {{/if}}
+            <div class="borderable">
+                  <span class="glyphicon glyphicon-heart-empty" data-id="{{id}}"></span>
+            </div>
+         </div>
             <a href="{{image.standard.image}}" class="lightbox" data-id="{{id}}">
                 <div class="image-wrapper" style="width: {{image.thumbnail.width}}px; height: {{image.thumbnail.height}}px;">
                     <img src="{{image.thumbnail.image}}" width="{{image.thumbnail.width}}" height="{{image.thumbnail.height}}"/>
@@ -35,6 +38,9 @@
                     {{/if}}
                     <br/>
                     <span class="dim">Board <a href="/tacks/board/{{board.id}}/">{{board.name}}</a></span>
+                    {{#if board.secret}}
+                        <span class="glyphicon glyphicon-user pull-right"></span>
+                    {{/if}}
                 </div>
             </div>
         </div>
