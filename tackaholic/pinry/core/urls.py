@@ -26,6 +26,8 @@ urlpatterns = patterns('',
 
     url(r'^tacks/tack-form/$', TemplateView.as_view(template_name='core/tack_form.html'),
         name='tack-form'),
+    url(r'^tacks/retack-form/$', TemplateView.as_view(template_name='core/retack_form.html'),
+        name='retack-form'),
     url(r'^tacks/create-image/$', CreateImage.as_view(), name='create-image'),
 
     url(r'^tacks/tag/(?P<tag>(\w|-)+)/$', TemplateView.as_view(template_name='core/tacks.html'),

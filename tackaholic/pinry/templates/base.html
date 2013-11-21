@@ -129,6 +129,7 @@
         {% include "includes/lightbox.html" %}
         {% include "includes/tacks.html" %}
         {% include "includes/tack_form.html" %}
+        {% include "includes/retack_form.html" %}
         {% include "includes/boards.html" %}
         {% include "includes/board_form.html" %}
         {% block extra_templates %}{% endblock %}
@@ -145,6 +146,7 @@
             <script src="{% static "js/lightbox.js" %}"></script>
             <script src="{% static "js/pinry.js" %}"></script>
             <script src="{% static "js/tack-form.js" %}"></script>
+            <script src="{% static "js/retack-form.js" %}"></script>
             <script src="{% static "js/board-form.js" %}"></script>
         {% endcompress %}
         {% compress js inline %}
