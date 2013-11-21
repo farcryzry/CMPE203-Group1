@@ -187,6 +187,7 @@ textarea {
     display: none;
     position: absolute;
     width: 240px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
 }
 
 .board .editable {
@@ -219,6 +220,7 @@ textarea {
     background-image: url("../img/loader.gif");
     background-position: center center;
     background-repeat: no-repeat;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.66) inset;
 }
 
 .board img {
@@ -295,7 +297,7 @@ textarea {
             border-radius: 3px;
     -webkit-box-shadow: 0 1px 0 #bbb;
        -moz-box-shadow: 0 1px 0 #bbb;
-            box-shadow: 0 1px 0 #bbb;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
     display: none;
     position: absolute;
     width: 240px;
