@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 
 from tastypie.api import Api
 
-from .api import ImageResource, ThumbnailResource, TackResource, UserResource, BoardResource, CategoryResource
+from .api import ImageResource, ThumbnailResource, TackResource, UserResource, BoardResource, CategoryResource, FollowingResource
 from .feeds import LatestTacks, LatestUserTacks, LatestTagTacks
 from .views import CreateImage, CreateBoard
 
@@ -15,6 +15,7 @@ v1_api.register(TackResource())
 v1_api.register(UserResource())
 v1_api.register(BoardResource())
 v1_api.register(CategoryResource())
+v1_api.register(FollowingResource())
 
 
 urlpatterns = patterns('',

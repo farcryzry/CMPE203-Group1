@@ -5,7 +5,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
 from django_images.models import Thumbnail
 
-from .models import Tack, Image, Board, Category
+from .models import Tack, Image, Board, Category, Following
 from ..users.models import User
 
 
@@ -168,4 +168,18 @@ class CategoryResource(ModelResource):
             'name': ALL
         }
         resource_name = 'category'
+        include_resource_uri = False
+
+class FollowingResource(ModelResource):
+    user = fields.ToOneField(UserResource, 'user', full=True)
+    board = fields.ToOneField(BoardResource, 'board', full=True)
+
+    class Meta:
+        ordering = ['id']
+        queryset = Following.objects.all()
+        filtering = {
+            'user': ALL_WITH_RELATIONS,
+            'board': ALL_WITH_RELATIONS
+        }
+        resource_name = 'following'
         include_resource_uri = False

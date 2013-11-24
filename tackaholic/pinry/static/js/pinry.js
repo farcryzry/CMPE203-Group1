@@ -196,10 +196,11 @@ $(window).load(function() {
                 var promise = getBoardData(boardFilter);
                 promise.success(function(board){
                     $( "#tacks" ).before("<h1 style='text-align:center'>" + board.name + "</h1>" +
-                        "<div style='text-align: right; margin-right: 50px'><a class='btn btn-primary'>Follow</a>" +
-                        "<a class='btn btn-warning'>Unfollow</a>" +
-                        "<a class='btn btn-success'>Followers</a></div>" +
-                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> ");
+                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> " +
+                        "<div style='text-align: center; margin-bottom:20px'><button type='button' class='follow btn btn-primary'>Follow</button>" +
+                        "<button style='display:none' type='button' class='btn btn-success'>Followers</button></div>");
+
+                    $('.follow')
                 });
             }
 
@@ -296,7 +297,7 @@ $(window).load(function() {
             if(userFilter && boardOwner != currentUser.username) {
                 $('#boards_title h1').text(boardOwner + "'s Page");
                 $('#boards_new a').remove();
-                $('#boards_new').html('<a class="btn btn-primary">Follow All</a>');
+                $('#boards_new').html('<button class="btn btn-primary">Follow All</button>');
             }
 
             if(categoryFilter) {
