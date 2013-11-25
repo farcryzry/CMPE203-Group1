@@ -183,3 +183,4 @@ class FollowingResource(ModelResource):
         }
         resource_name = 'following'
         include_resource_uri = False
+        authorization = DjangoAuthorization()

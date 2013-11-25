@@ -68,4 +68,7 @@ class Following(models.Model):
     user = models.ForeignKey(User)
     board = models.ForeignKey(Board)
 
+def __unicode__(self):
+        return self.user.id + "_" + self.board.id
+
 

@@ -104,3 +104,12 @@ function putBoardData(boardId, data) {
         data: JSON.stringify(data)
     });
 }
+
+function postFollowingData(data) {
+    return $.ajax({
+        type: "post",
+        url: "/api/v1/following/",
+        contentType: 'application/json',
+        data: JSON.stringify(data)
+    });
+}

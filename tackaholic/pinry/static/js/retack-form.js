@@ -29,7 +29,7 @@ $(window).load(function() {
                 description: $('#retack-form-description').val(),
                 tags: cleanTags($('#retack-form-tags').val())
             }]},
-            html = renderTemplate('#retacks-template', context),
+            html = renderTemplate('#tacks-template', context),
             preview = $('#retack-form-image-preview');
         preview.html(html);
         preview.find('.tack').width(240);
@@ -60,6 +60,7 @@ $(window).load(function() {
 
     // Start View Functions
     function createRetackForm(editTackId) {
+
         var promise = getBoardListData(currentUser.id);
         promise.success(function(data) {
             $('body').append(renderTemplate('#retack-form-template', {boards: data.objects}));
@@ -79,6 +80,7 @@ $(window).load(function() {
             promise = getTackData(editTackId);
             promise.success(function(data) {
                 editedTack = data;
+                $('#retack-form-image-url').attr('data-id',data.image.id);
                 $('#retack-form-image-url').val(editedTack.image.thumbnail.image);
                 $('#retack-form-image-url').parent().hide();
                 $('#retack-form-image-upload').parent().hide();
@@ -142,7 +144,8 @@ $(window).load(function() {
             e.preventDefault();
             $(this).off('click');
             $(this).addClass('disabled');
-            if (editedTack) {
+            if (false) {
+            //if (editedTack) {
                 var apiUrl = '/api/v1/tack/'+editedTack.id+'/?format=json';
                 var data = {
                     board: '/api/v1/user/'+$('#retack-form-board').val()+'/',
@@ -157,7 +160,7 @@ $(window).load(function() {
                 });
                 promise.success(function(tack) {
                     tack.editable = true;
-                    var renderedTack = renderTemplate('#retacks-template', {
+                    var renderedTack = renderTemplate('#tacks-template', {
                         tacks: [
                             tack
                         ]
@@ -179,13 +182,15 @@ $(window).load(function() {
                     board: '/api/v1/user/'+$('#retack-form-board').val()+'/',
                     tags: cleanTags($('#retack-form-tags').val())
                 };
-                if (uploadedImage) data.image = '/api/v1/image/'+uploadedImage+'/';
-                else data.url = $('#retack-form-image-url').val();
+                //if (uploadedImage) data.image = '/api/v1/image/'+uploadedImage+'/';
+                data.image = '/api/v1/image/' + $('#retack-form-image-url').attr('data-id') + '/';
+                //else
+                //data.url = $('#retack-form-image-url').val();
                 var promise = postTackData(data);
                 promise.success(function(tack) {
                     if (retackFromUrl) return window.close();
                     tack.editable = true;
-                    tack = renderTemplate('#retacks-template', {tacks: [tack]});
+                    tack = renderTemplate('#tacks-template', {tacks: [tack]});
                     $('#tacks').prepend(tack);
                     tileLayout('tacks', 'tack');
                     lightbox();
@@ -212,8 +217,8 @@ $(window).load(function() {
         createRetackForm(editTackId);
     }
 
-    if (getUrlParameter('retack-image-url')) {
-        createRetackForm();
-    }
+    //if (getUrlParameter('retack-image-url')) {
+    //    createRetackForm();
+    //}
     // End Init
 });

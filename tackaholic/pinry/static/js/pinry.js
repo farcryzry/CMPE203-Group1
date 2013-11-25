@@ -200,7 +200,20 @@ $(window).load(function() {
                         "<div style='text-align: center; margin-bottom:20px'><button type='button' class='follow btn btn-primary'>Follow</button>" +
                         "<button style='display:none' type='button' class='btn btn-success'>Followers</button></div>");
 
-                    $('.follow')
+                    $('.follow').click(function(){
+                        alert('follow');
+                        var data = {
+                            user: '/api/v1/user/' + currentUser.id +'/',
+                            board: '/api/v1/board/' + board.id + '/'
+                        };
+                        var promise = postFollowingData(data);
+                        promise.success(function(following) {
+                            message('New following added.', 'alert alert-sucess');
+                        });
+                        promise.error(function() {
+                            message('Problem creating new following.', 'alert alert-warning');
+                        });
+                    })
                 });
             }
 
