@@ -61,6 +61,13 @@ function deleteBoardData(boardId) {
     });
 }
 
+function deleteFollowingData(followId) {
+    var apiUrl = '/api/v1/following/'+followId+'/?format=json';
+    return $.ajax(apiUrl, {
+        type: 'DELETE'
+    });
+}
+
 function postTackData(data) {
     return $.ajax({
         type: "post",

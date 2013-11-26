@@ -222,7 +222,14 @@ $(window).load(function() {
                             });
                         });
                         $('.unfollow').click(function(){
-
+                            alert('unfollow');
+                            var promise = deleteFollowingData(following.objects[0].id);
+                            promise.success(function() {
+                                message('Following cancelled.', 'alert alert-sucess');
+                            });
+                            promise.error(function() {
+                                message('Problem deleting board.', 'alert alert-warning');
+                            });
                         });
                     });
                 });
