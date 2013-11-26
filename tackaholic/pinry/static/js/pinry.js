@@ -195,25 +195,36 @@ $(window).load(function() {
             if(boardFilter) {
                 var promise = getBoardData(boardFilter);
                 promise.success(function(board){
-                    $( "#tacks" ).before("<h1 style='text-align:center'>" + board.name + "</h1>" +
-                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> " +
-                        "<div style='text-align: center; margin-bottom:20px'><button type='button' class='follow btn btn-primary'>Follow</button>" +
+                    var btnFollow = "<div style='text-align: center; margin-bottom:20px'><button type='button' class='follow btn btn-primary'>Follow</button>" ;
+                    var btnUnfollow = "<div style='text-align: center; margin-bottom:20px'><button type='button' class='unfollow btn btn-primary'>UnFollow</button>";
+                    var btn = btnFollow;
+
+                    followingUrl = '/api/v1/following/?format=json&order_by=-id&user__id='+ currentUser.id +'&board__id='+ board.id;
+                    $.get(followingUrl, function(following){
+                        if(following.objects.length > 0)
+                            btn = btnUnfollow;
+                        $( "#tacks" ).before("<h1 style='text-align:center'>" + board.name + "</h1>" +
+                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> " + btn +
                         "<button style='display:none' type='button' class='btn btn-success'>Followers</button></div>");
 
-                    $('.follow').click(function(){
-                        alert('follow');
-                        var data = {
-                            user: '/api/v1/user/' + currentUser.id +'/',
-                            board: '/api/v1/board/' + board.id + '/'
-                        };
-                        var promise = postFollowingData(data);
-                        promise.success(function(following) {
-                            message('New following added.', 'alert alert-sucess');
+                        $('.follow').click(function(){
+                            alert('follow');
+                            var data = {
+                                user: '/api/v1/user/' + currentUser.id +'/',
+                                board: '/api/v1/board/' + board.id + '/'
+                            };
+                            var promise = postFollowingData(data);
+                            promise.success(function(following) {
+                                message('New following added.', 'alert alert-sucess');
+                            });
+                            promise.error(function() {
+                                message('Problem creating new following.', 'alert alert-warning');
+                            });
                         });
-                        promise.error(function() {
-                            message('Problem creating new following.', 'alert alert-warning');
+                        $('.unfollow').click(function(){
+
                         });
-                    })
+                    });
                 });
             }
 
