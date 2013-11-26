@@ -95,7 +95,7 @@ $(window).load(function() {
                     lightbox();
                     dismissModal(modal);
                     editedBoard = null;
-                    message('Board updated, please refresh to see it.', 'alert alert-sucess');
+                    message('Board updated, please refresh to see it.', 'alert alert-success');
                 });
 
                 promise.error(function() {
@@ -119,7 +119,7 @@ $(window).load(function() {
                     tileLayout('boards', 'board');
                     lightbox();
                     dismissModal(modal);
-                    message('New board added, please refresh to see it.', 'alert alert-sucess');
+                    message('New board added, please refresh to see it.', 'alert alert-success');
                 });
                 promise.error(function() {
                     message('Problem creating new board.', 'alert alert-warning');

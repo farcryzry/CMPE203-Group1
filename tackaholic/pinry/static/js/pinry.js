@@ -189,23 +189,27 @@ $(window).load(function() {
             // Append the newly compiled data to our container
 
             if(tagFilter) {
-                $( "#tacks" ).before("<h1 style='text-align:center;margin-bottom:20px'>Tacks Under Tag " + tagFilter + "</h1>");
+                $( "#header" ).html("<h1 style='text-align:center;margin-bottom:20px'>Tacks Under Tag " + tagFilter + "</h1>");
             }
 
             if(boardFilter) {
                 var promise = getBoardData(boardFilter);
                 promise.success(function(board){
-                    var btnFollow = "<div style='text-align: center; margin-bottom:20px'><button type='button' class='follow btn btn-primary'>Follow</button>" ;
-                    var btnUnfollow = "<div style='text-align: center; margin-bottom:20px'><button type='button' class='unfollow btn btn-primary'>UnFollow</button>";
+                    var btnFollow = "<button class='follow btn btn-primary'>Follow</button>" ;
+                    var btnUnfollow = "<button class='unfollow btn btn-primary'>UnFollow</button>";
+                    var btnFollowers = "<button class='followers btn btn-success'>Followers</button>";
                     var btn = btnFollow;
 
                     followingUrl = '/api/v1/following/?format=json&order_by=-id&user__id='+ currentUser.id +'&board__id='+ board.id;
                     $.get(followingUrl, function(following){
-                        if(following.objects.length > 0)
+                        if(currentUser.id == board.owner.id)
+                            btn = btnFollowers;
+                        else if(following.objects.length > 0)
                             btn = btnUnfollow;
-                        $( "#tacks" ).before("<h1 style='text-align:center'>" + board.name + "</h1>" +
-                        "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description + "</div> " + btn +
-                        "<button style='display:none' type='button' class='btn btn-success'>Followers</button></div>");
+                        $("#header").html("<h1 style='text-align:center'>" + board.name + "</h1>" +
+                            "<div class='text' style='text-align:center;margin-bottom:20px'>" + board.description +
+                            "</div><div id='button' style='text-align: center; margin-bottom:20px'>" + btn +"</div>");
+
 
                         $('.follow').click(function(){
                             var data = {
@@ -214,7 +218,8 @@ $(window).load(function() {
                             };
                             var promise = postFollowingData(data);
                             promise.success(function(following) {
-                                message('New following added.', 'alert alert-sucess');
+                                loadTacks();
+                                message('New following added.', 'alert alert-success');
                             });
                             promise.error(function() {
                                 message('Problem creating new following.', 'alert alert-warning');
@@ -223,11 +228,15 @@ $(window).load(function() {
                         $('.unfollow').click(function(){
                             var promise = deleteFollowingData(following.objects[0].id);
                             promise.success(function() {
-                                message('Following cancelled.', 'alert alert-sucess');
+                                loadTacks();
+                                message('Following cancelled.', 'alert alert-success');
                             });
                             promise.error(function() {
                                 message('Problem deleting board.', 'alert alert-warning');
                             });
+                        });
+                        $('.followers').click(function() {
+                            //!!!
                         });
                     });
                 });

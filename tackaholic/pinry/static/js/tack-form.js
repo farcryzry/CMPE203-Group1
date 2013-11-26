@@ -167,7 +167,7 @@ $(window).load(function() {
                     lightbox();
                     dismissModal(modal);
                     editedTack = null;
-                    message('New tack added, please refresh to see it.', 'alert alert-sucess');
+                    message('New tack added, please refresh to see it.', 'alert alert-success');
                 });
                 promise.error(function() {
                     message('Problem updating image.', 'alert alert-warning');
