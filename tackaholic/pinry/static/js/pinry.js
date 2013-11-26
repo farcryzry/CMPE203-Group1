@@ -208,7 +208,6 @@ $(window).load(function() {
                         "<button style='display:none' type='button' class='btn btn-success'>Followers</button></div>");
 
                         $('.follow').click(function(){
-                            alert('follow');
                             var data = {
                                 user: '/api/v1/user/' + currentUser.id +'/',
                                 board: '/api/v1/board/' + board.id + '/'
@@ -222,7 +221,6 @@ $(window).load(function() {
                             });
                         });
                         $('.unfollow').click(function(){
-                            alert('unfollow');
                             var promise = deleteFollowingData(following.objects[0].id);
                             promise.success(function() {
                                 message('Following cancelled.', 'alert alert-sucess');
