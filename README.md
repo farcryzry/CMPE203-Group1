@@ -28,3 +28,15 @@ How to show debug information in web pages like http requests and sql?
 
 1. Install django debug toolbar(https://github.com/django-debug-toolbar/django-debug-toolbar) <br>
 Follow the steps here http://django-debug-toolbar.readthedocs.org/en/latest/panels.html <br>
+
+
+==============
+How to start website on Amazon EC2?
+
+1. Download key file from https://drive.google.com/file/d/0B1dcPcw9ZfXFYmQyTVd0VUpHTEk/edit?usp=sharing<br>
+2. In Ubuntu Shell or Windows SSH client, run:<br>
+   ssh -i [pem file directory]/203.pem ubuntu@ec2-54-201-140-144.us-west-2.compute.amazonaws.com<br>
+3. After login, start web server by:<br>
+   sudo python ~/srv/CMPE203-Group1/tackaholic/manage.py runserver 0.0.0.0:80
+4. Then open your browser, enjoy: http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com/
+
