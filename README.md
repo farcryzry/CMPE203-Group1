@@ -31,7 +31,7 @@ Follow the steps here http://django-debug-toolbar.readthedocs.org/en/latest/pane
 
 
 ==============
-How to start website on Amazon EC2?
+How to start website on Amazon EC2? http://nickpolet.com/blog/1/<br>
 
 1. Download key file from https://drive.google.com/file/d/0B1dcPcw9ZfXFYmQyTVd0VUpHTEk/edit?usp=sharing<br>
 2. In Ubuntu Shell or Windows SSH client, run:<br>
