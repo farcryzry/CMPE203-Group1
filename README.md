@@ -38,5 +38,5 @@ How to start website on Amazon EC2?
    ssh -i [pem file directory]/203.pem ubuntu@ec2-54-201-140-144.us-west-2.compute.amazonaws.com<br>
 3. After login, start web server by:<br>
    sudo python ~/srv/CMPE203-Group1/tackaholic/manage.py runserver 0.0.0.0:80
-4. Then open your browser, enjoy: http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com/
+4. Then open your browser, enjoy: http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com
 
