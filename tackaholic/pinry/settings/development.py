@@ -9,7 +9,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(SITE_ROOT, 'development.db'),
-        #'NAME': '~/srv/CMPE203-Group1/tackaholic/development.db',
+        #'NAME': '/home/ubuntu/srv/CMPE203-Group1/tackaholic/development.db',
     }
 }
 
