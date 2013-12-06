@@ -2,7 +2,7 @@ Tackaholic (a Pinterest-like web application)
 ==============
 CMPE203 Project by Group1<br>
 
-<a href='http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com'>Live Demo Here</a>
+<a href='http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com' target='_blank_'>Live Demo Here</a>
 
 
 How to set up the enviroment of this web application?
