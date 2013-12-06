@@ -7,69 +7,53 @@ CMPE203 Project by Group1, based on <a href='https://github.com/pinry/pinry' tar
 Team members: <br>
 
 <table><tbody>
-<tr>
-<td>
-<div><img alt="Pouya Jafarian" src="https://secure.gravatar.com/avatar/493da37d6d171f30c52d3ab34065c381?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px"></div>
-</td>
-<td>
-<div>Pouya Jafarian</div>
-
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Jing Ma" src="https://sjsu.instructure.com/images/thumbnails/29135211/KtK43akRHngjpCBhHgUxRWI0txJpAszXdYyMzLqO" width="50px">></div>
-</td>
-<td>
-<div>Jing Ma</div>
-<div></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Nishant Mehta" src="https://sjsu.instructure.com/images/thumbnails/29609649/PH90JzSDSNhfrgSpVEnfFIT6FUB5NS5yOG7g1ezz" width="50px"></div>
-</td>
-<td>
-<div>Nishant Mehta</div>
-<div></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Yang Song" src="https://sjsu.instructure.com/images/thumbnails/29059551/BI4HjZK4PieWwznDakhqhWqI8f6z1lfazITVBV4D" width="50px"></div>
-</td>
-<td>
-<div>Yang Song</div>
-<div></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Lan Xu" src="https://sjsu.instructure.com/images/thumbnails/29051036/R0zKbnKkwdjGX24bIBRBg11AekzMFuBNPPzhQWkE" width="50px"></div>
-</td>
-<td>
-<div>Lan Xu</div>
-<div></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Ruiyun Zhou" src="https://sjsu.instructure.com/images/thumbnails/29080899/SGt1S0FBG5QHJ8jZwN2Kxy2VmyAg9BUg6JXL6hjA" width="50px"></div>
-</td>
-<td>
-<div>Ruiyun Zhou</div>
-<div></div>
-</td>
-</tr>
-<tr>
-<td>
-<div><img alt="Junchen Zhu" src="https://secure.gravatar.com/avatar/d23c8c9687f6cbe7d234dd59aacf1107?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px"></div>
-</td>
-<td>
-<div>Junchen Zhu</div>
-<div></div>
-</td>
-</tr>
+   <tr>
+      <td><img alt="Pouya Jafarian" src="https://secure.gravatar.com/avatar/493da37d6d171f30c52d3ab34065c381?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px">
+      </td>
+      <td>Pouya Jafarian</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Jing Ma" src="https://sjsu.instructure.com/images/thumbnails/29135211/KtK43akRHngjpCBhHgUxRWI0txJpAszXdYyMzLqO" width="50px"></div>
+   </td>
+   <td>Jing Ma</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Nishant Mehta" src="https://sjsu.instructure.com/images/thumbnails/29609649/PH90JzSDSNhfrgSpVEnfFIT6FUB5NS5yOG7g1ezz" width="50px"></div>
+   </td>
+   <td>Nishant Mehta</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Yang Song" src="https://sjsu.instructure.com/images/thumbnails/29059551/BI4HjZK4PieWwznDakhqhWqI8f6z1lfazITVBV4D" width="50px"></div>
+   </td>
+   <td>Yang Song</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Lan Xu" src="https://sjsu.instructure.com/images/thumbnails/29051036/R0zKbnKkwdjGX24bIBRBg11AekzMFuBNPPzhQWkE" width="50px"></div>
+   </td>
+   <td>Lan Xu</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Ruiyun Zhou" src="https://sjsu.instructure.com/images/thumbnails/29080899/SGt1S0FBG5QHJ8jZwN2Kxy2VmyAg9BUg6JXL6hjA" width="50px"></div>
+   </td>
+   <td>Ruiyun Zhou</td>
+   </tr>
+   
+   <tr>
+   <td>
+   <div><img alt="Junchen Zhu" src="https://secure.gravatar.com/avatar/d23c8c9687f6cbe7d234dd59aacf1107?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px"></div>
+   </td>
+   <td>Junchen Zhu</td>
+   </tr>
 </tbody></table>
 
 
