@@ -8,56 +8,18 @@ Team members: <br>
 
 <table><tbody>
    <tr>
-      <td><img alt="Pouya Jafarian" src="https://secure.gravatar.com/avatar/493da37d6d171f30c52d3ab34065c381?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px">
-      </td>
       <td>Pouya Jafarian</td>
+      <td>Jing Ma</td>
+      <td>Nishant Mehta</td>
+      <td>Yang Song</td>
+      <td>Lan Xu</td>
+      <td>Ruiyun Zhou</td>
+      <td>Junchen Zhu</td>
    </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Jing Ma" src="https://sjsu.instructure.com/images/thumbnails/29135211/KtK43akRHngjpCBhHgUxRWI0txJpAszXdYyMzLqO" width="50px"></div>
-   </td>
-   <td>Jing Ma</td>
-   </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Nishant Mehta" src="https://sjsu.instructure.com/images/thumbnails/29609649/PH90JzSDSNhfrgSpVEnfFIT6FUB5NS5yOG7g1ezz" width="50px"></div>
-   </td>
-   <td>Nishant Mehta</td>
-   </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Yang Song" src="https://sjsu.instructure.com/images/thumbnails/29059551/BI4HjZK4PieWwznDakhqhWqI8f6z1lfazITVBV4D" width="50px"></div>
-   </td>
-   <td>Yang Song</td>
-   </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Lan Xu" src="https://sjsu.instructure.com/images/thumbnails/29051036/R0zKbnKkwdjGX24bIBRBg11AekzMFuBNPPzhQWkE" width="50px"></div>
-   </td>
-   <td>Lan Xu</td>
-   </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Ruiyun Zhou" src="https://sjsu.instructure.com/images/thumbnails/29080899/SGt1S0FBG5QHJ8jZwN2Kxy2VmyAg9BUg6JXL6hjA" width="50px"></div>
-   </td>
-   <td>Ruiyun Zhou</td>
-   </tr>
-   
-   <tr>
-   <td>
-   <div><img alt="Junchen Zhu" src="https://secure.gravatar.com/avatar/d23c8c9687f6cbe7d234dd59aacf1107?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" width="50px"></div>
-   </td>
-   <td>Junchen Zhu</td>
-   </tr>
-</tbody></table>
+</tbody></table><br/>
 
 
-How to set up the enviroment of this web application?
+<h3>How to set up the enviroment of this web application?</h3>
 
 1.  Install Python 2.7<br>
 Python 2.* works better than 3.* for Pinry. <br>
@@ -80,14 +42,14 @@ $ python setup.py install
 $ python manage.py runserver
 
 ==============
-How to show debug information in web pages like http requests and sql?
+<h3>How to show debug information in web pages like http requests and sql?</h3>
 
 1. Install django debug toolbar(https://github.com/django-debug-toolbar/django-debug-toolbar) <br>
 Follow the steps here http://django-debug-toolbar.readthedocs.org/en/latest/panels.html <br>
 
 
 ==============
-How to start website on Amazon EC2? http://nickpolet.com/blog/1/<br>
+<h3>How to start website on Amazon EC2? (http://nickpolet.com/blog/1/)</h3>
 
 1. Download key file from https://drive.google.com/file/d/0B1dcPcw9ZfXFYmQyTVd0VUpHTEk/edit?usp=sharing<br>
 2. In Ubuntu Shell or Windows SSH client, run:<br>
