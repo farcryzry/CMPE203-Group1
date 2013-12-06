@@ -9,7 +9,7 @@ Team members: <br>
 <table><tbody>
 <tr>
 <td>
-<div><img alt="Pouya Jafarian" src="https://secure.gravatar.com/avatar/493da37d6d171f30c52d3ab34065c381?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" style="max-width:100%;"></div>
+<div><img alt="Pouya Jafarian" src="https://secure.gravatar.com/avatar/493da37d6d171f30c52d3ab34065c381?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" style="width:50px"></div>
 </td>
 <td>
 <div>Pouya Jafarian</div>
@@ -18,7 +18,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Jing Ma" src="https://sjsu.instructure.com/images/thumbnails/29135211/KtK43akRHngjpCBhHgUxRWI0txJpAszXdYyMzLqO" style="max-width:100%;"></div>
+<div><img alt="Jing Ma" src="https://sjsu.instructure.com/images/thumbnails/29135211/KtK43akRHngjpCBhHgUxRWI0txJpAszXdYyMzLqO" style="width:50px"></div>
 </td>
 <td>
 <div>Jing Ma</div>
@@ -27,7 +27,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Nishant Mehta" src="https://sjsu.instructure.com/images/thumbnails/29609649/PH90JzSDSNhfrgSpVEnfFIT6FUB5NS5yOG7g1ezz" style="max-width:100%;"></div>
+<div><img alt="Nishant Mehta" src="https://sjsu.instructure.com/images/thumbnails/29609649/PH90JzSDSNhfrgSpVEnfFIT6FUB5NS5yOG7g1ezz" style="width:50px"></div>
 </td>
 <td>
 <div>Nishant Mehta</div>
@@ -36,7 +36,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Yang Song" src="https://sjsu.instructure.com/images/thumbnails/29059551/BI4HjZK4PieWwznDakhqhWqI8f6z1lfazITVBV4D" style="max-width:100%;"></div>
+<div><img alt="Yang Song" src="https://sjsu.instructure.com/images/thumbnails/29059551/BI4HjZK4PieWwznDakhqhWqI8f6z1lfazITVBV4D" style="width:50px"></div>
 </td>
 <td>
 <div>Yang Song</div>
@@ -45,7 +45,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Lan Xu" src="https://sjsu.instructure.com/images/thumbnails/29051036/R0zKbnKkwdjGX24bIBRBg11AekzMFuBNPPzhQWkE" style="max-width:100%;"></div>
+<div><img alt="Lan Xu" src="https://sjsu.instructure.com/images/thumbnails/29051036/R0zKbnKkwdjGX24bIBRBg11AekzMFuBNPPzhQWkE" style="width:50px"></div>
 </td>
 <td>
 <div>Lan Xu</div>
@@ -54,7 +54,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Ruiyun Zhou" src="https://sjsu.instructure.com/images/thumbnails/29080899/SGt1S0FBG5QHJ8jZwN2Kxy2VmyAg9BUg6JXL6hjA" style="max-width:100%;"></div>
+<div><img alt="Ruiyun Zhou" src="https://sjsu.instructure.com/images/thumbnails/29080899/SGt1S0FBG5QHJ8jZwN2Kxy2VmyAg9BUg6JXL6hjA" style="width:50px"></div>
 </td>
 <td>
 <div>Ruiyun Zhou</div>
@@ -63,7 +63,7 @@ Team members: <br>
 </tr>
 <tr>
 <td>
-<div><img alt="Junchen Zhu" src="https://secure.gravatar.com/avatar/d23c8c9687f6cbe7d234dd59aacf1107?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" style="max-width:100%;"></div>
+<div><img alt="Junchen Zhu" src="https://secure.gravatar.com/avatar/d23c8c9687f6cbe7d234dd59aacf1107?s=50&amp;d=https%3A%2F%2Fsjsu.instructure.com%2Fimages%2Fmessages%2Favatar-50.png" style="width:50px"></div>
 </td>
 <td>
 <div>Junchen Zhu</div>
