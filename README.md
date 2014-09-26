@@ -2,7 +2,7 @@ Tackaholic (a Pinterest-like web application)
 ==============
 CMPE203 Project by Group1, based on <a href='https://github.com/pinry/pinry' target='_blank_'>Pinry</a><br>
 
-<h3><a href='http://ec2-54-201-140-144.us-west-2.compute.amazonaws.com' target='_blank_'>Live Demo Here</a></h3>
+<h3><a href='http://54.69.30.34/' target='_blank_'>Live Demo Here</a></h3>
 
 Team members: <br>
 
